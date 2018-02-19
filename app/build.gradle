@@ -16,6 +16,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
 }
 
 dependencies {
@@ -25,6 +29,9 @@ dependencies {
     implementation support.constraintLayout
     implementation support.recyclerview
     implementation support.design
+
+    implementation arch.androidArchComponents
+    annotationProcessor arch.androidArchApt
 
     // ButterKnife
     implementation jakewharton.butterknife
@@ -37,6 +44,14 @@ dependencies {
     // Dagger
     implementation dagger.dagger
     annotationProcessor dagger.daggerCompiler
+
+    //netWork
+    implementation netWork.retrofit
+    implementation netWork.retrofitRxAdapter
+    implementation netWork.retrofitConverterGson
+    implementation netWork.gson
+    implementation netWork.timber
+    implementation netWork.logInterceptor
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
