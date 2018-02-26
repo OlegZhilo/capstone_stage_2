@@ -3,147 +3,55 @@ package ru.crypto.android.cryptomonitor.repository.responses;
 
 import com.google.gson.annotations.SerializedName;
 
-public class CurrencyResponse {
+import ru.crypto.android.cryptomonitor.domain.Currency;
+import ru.crypto.android.cryptomonitor.repository.common.network.Transformable;
+
+public class CurrencyResponse implements Transformable<Currency> {
 
     @SerializedName("24h_volume_usd")
     private String volume24hUsd;
     @SerializedName("available_supply")
-    private String AvailableSupply;
+    private String availableSupply;
     @SerializedName("id")
-    private String Id;
+    private String id;
     @SerializedName("last_updated")
-    private String LastUpdated;
+    private String lastUpdated;
     @SerializedName("market_cap_usd")
-    private String MarketCapUsd;
+    private String marketCapUsd;
     @SerializedName("name")
-    private String Name;
+    private String name;
     @SerializedName("percent_change_1h")
-    private String PercentChange1H;
+    private String percentChange1H;
     @SerializedName("percent_change_24h")
-    private String PercentChange24H;
+    private String percentChange24H;
     @SerializedName("percent_change_7d")
-    private String PercentChange7D;
+    private String percentChange7D;
     @SerializedName("price_btc")
-    private String PriceBtc;
+    private String priceBtc;
     @SerializedName("price_usd")
-    private String PriceUsd;
+    private String priceUsd;
     @SerializedName("rank")
-    private String Rank;
+    private String rank;
     @SerializedName("symbol")
-    private String Symbol;
+    private String symbol;
     @SerializedName("total_supply")
-    private String TotalSupply;
+    private String totalSupply;
 
-    public String getVolume24hUsd() {
-        return  volume24hUsd;
+    @Override
+    public Currency transform() {
+        return new Currency(id,
+                name,
+                lastUpdated,
+                volume24hUsd,
+                availableSupply,
+                marketCapUsd,
+                percentChange1H,
+                percentChange24H,
+                percentChange7D,
+                priceBtc,
+                priceUsd,
+                rank,
+                symbol,
+                totalSupply);
     }
-
-    public void set4hVolumeUsd(String volume24hUsd) {
-        this.volume24hUsd = volume24hUsd;
-    }
-
-    public String getAvailableSupply() {
-        return AvailableSupply;
-    }
-
-    public void setAvailableSupply(String availableSupply) {
-        AvailableSupply = availableSupply;
-    }
-
-    public String getId() {
-        return Id;
-    }
-
-    public void setId(String id) {
-        Id = id;
-    }
-
-    public String getLastUpdated() {
-        return LastUpdated;
-    }
-
-    public void setLastUpdated(String lastUpdated) {
-        LastUpdated = lastUpdated;
-    }
-
-    public String getMarketCapUsd() {
-        return MarketCapUsd;
-    }
-
-    public void setMarketCapUsd(String marketCapUsd) {
-        MarketCapUsd = marketCapUsd;
-    }
-
-    public String getName() {
-        return Name;
-    }
-
-    public void setName(String name) {
-        Name = name;
-    }
-
-    public String getPercentChange1H() {
-        return PercentChange1H;
-    }
-
-    public void setPercentChange1H(String percentChange1H) {
-        PercentChange1H = percentChange1H;
-    }
-
-    public String getPercentChange24H() {
-        return PercentChange24H;
-    }
-
-    public void setPercentChange24H(String percentChange24H) {
-        PercentChange24H = percentChange24H;
-    }
-
-    public String getPercentChange7D() {
-        return PercentChange7D;
-    }
-
-    public void setPercentChange7D(String percentChange7D) {
-        PercentChange7D = percentChange7D;
-    }
-
-    public String getPriceBtc() {
-        return PriceBtc;
-    }
-
-    public void setPriceBtc(String priceBtc) {
-        PriceBtc = priceBtc;
-    }
-
-    public String getPriceUsd() {
-        return PriceUsd;
-    }
-
-    public void setPriceUsd(String priceUsd) {
-        PriceUsd = priceUsd;
-    }
-
-    public String getRank() {
-        return Rank;
-    }
-
-    public void setRank(String rank) {
-        Rank = rank;
-    }
-
-    public String getSymbol() {
-        return Symbol;
-    }
-
-    public void setSymbol(String symbol) {
-        Symbol = symbol;
-    }
-
-    public String getTotalSupply() {
-        return TotalSupply;
-    }
-
-    public void setTotalSupply(String totalSupply) {
-        TotalSupply = totalSupply;
-    }
-
 }

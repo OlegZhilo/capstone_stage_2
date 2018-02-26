@@ -22,6 +22,13 @@ android {
     }
 }
 
+sourceSets {
+    androidTest {
+        java.srcDirs += ['src/androidTest/java']
+        resources.srcDirs += ['src/androidTest/res']
+    }
+}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
@@ -44,6 +51,7 @@ dependencies {
     // Dagger
     implementation dagger.dagger
     annotationProcessor dagger.daggerCompiler
+    androidTestAnnotationProcessor dagger.daggerCompiler
 
     //netWork
     implementation netWork.retrofit

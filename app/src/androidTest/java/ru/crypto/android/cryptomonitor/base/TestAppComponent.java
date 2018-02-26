@@ -1,6 +1,7 @@
-package ru.crypto.android.cryptomonitor.app.dagger;
+package ru.crypto.android.cryptomonitor.base;
 
 import dagger.Component;
+import ru.crypto.android.cryptomonitor.CurrencyTest;
 import ru.crypto.android.cryptomonitor.app.dagger.scope.PerApplication;
 import ru.crypto.android.cryptomonitor.app.scheduler.SchedulerModule;
 import ru.crypto.android.cryptomonitor.repository.CurrencyModule;
@@ -16,5 +17,6 @@ import ru.crypto.android.cryptomonitor.repository.common.network.ServerUrlModule
         OkHttpModule.class,
         CurrencyModule.class
 })
-public interface AppComponent {
+public interface TestAppComponent {
+    void inject(CurrencyTest test);
 }
