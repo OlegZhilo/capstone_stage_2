@@ -1,6 +1,9 @@
 package ru.crypto.android.cryptomonitor.repository;
 
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.List;
 
 import javax.inject.Inject;

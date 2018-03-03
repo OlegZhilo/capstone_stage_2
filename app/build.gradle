@@ -48,10 +48,17 @@ dependencies {
     implementation rxjava2.rxjava
     implementation rxjava2.rxandroid
 
-    // Dagger
+    // Dagger 2
     implementation dagger.dagger
     annotationProcessor dagger.daggerCompiler
     androidTestAnnotationProcessor dagger.daggerCompiler
+
+    //Dagger android
+    implementation dagger.daggerAndroid
+    annotationProcessor dagger.daggerAndroidCompiler
+
+    //data pesistent
+    implementation gServices.firebaseDb
 
     //netWork
     implementation netWork.retrofit

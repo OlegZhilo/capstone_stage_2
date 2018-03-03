@@ -1,13 +1,19 @@
 package ru.crypto.android.cryptomonitor.app;
 
+import android.app.Activity;
 import android.app.Application;
 
-import ru.crypto.android.cryptomonitor.app.dagger.AppComponent;
+import javax.inject.Inject;
+
+import dagger.android.AndroidInjector;
+import dagger.android.DispatchingAndroidInjector;
+import dagger.android.HasActivityInjector;
 import ru.crypto.android.cryptomonitor.app.dagger.DaggerAppComponent;
 
-public class App extends Application {
+public class App extends Application implements HasActivityInjector {
 
-    AppComponent appComponent;
+    @Inject
+    DispatchingAndroidInjector<Activity> dispatchingAndroidInjector;
 
     @Override
     public void onCreate() {
@@ -16,7 +22,14 @@ public class App extends Application {
     }
 
     private void initDi() {
-        appComponent = DaggerAppComponent.builder()
-                .build();
+        DaggerAppComponent.builder()
+                .application(this)
+                .build()
+                .inject(this);
+    }
+
+    @Override
+    public AndroidInjector<Activity> activityInjector() {
+        return dispatchingAndroidInjector;
     }
 }

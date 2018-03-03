@@ -61,7 +61,8 @@ ext {
             retrofitVersion  : "2.3.0",
             gsonVersion      : "2.8.2",
             okHttpVersion    : "3.4.1",
-            timberVersion    : "4.6.1"
+            timberVersion    : "4.6.1",
+            firebase         : "11.8.0"
     ]
 
     support = [
@@ -77,8 +78,11 @@ ext {
     ]
 
     dagger = [
-            dagger        : "com.google.dagger:dagger:$versions.dagger",
-            daggerCompiler: "com.google.dagger:dagger-compiler:$versions.dagger"
+            dagger               : "com.google.dagger:dagger:$versions.dagger",
+            daggerAndroid        : "com.google.dagger:dagger-android:$versions.dagger",
+            daggerAndroidSupport : "com.google.dagger:dagger-android-support:$versions.dagger",
+            daggerAndroidCompiler: "com.google.dagger:dagger-android-processor:$versions.dagger",
+            daggerCompiler       : "com.google.dagger:dagger-compiler:$versions.dagger"
     ]
 
     rxjava2 = [
@@ -98,5 +102,9 @@ ext {
             timber               : "com.jakewharton.timber:timber:$versions.timberVersion",
             gson                 : "com.google.code.gson:gson:$versions.gsonVersion",
             logInterceptor       : "com.squareup.okhttp3:logging-interceptor:$versions.okHttpVersion"
+    ]
+
+    gServices = [
+            firebaseDb: "com.google.firebase:firebase-database:$versions.firebase"
     ]
 }
