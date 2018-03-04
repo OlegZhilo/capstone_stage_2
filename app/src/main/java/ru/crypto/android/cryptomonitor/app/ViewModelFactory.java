@@ -6,7 +6,7 @@ import android.support.annotation.NonNull;
 
 import ru.crypto.android.cryptomonitor.app.scheduler.SchedulersProvider;
 import ru.crypto.android.cryptomonitor.repository.CurrencyRepository;
-import ru.crypto.android.cryptomonitor.ui.list.MainViewModel;
+import ru.crypto.android.cryptomonitor.ui.main.MainViewModel;
 
 public class ViewModelFactory implements ViewModelProvider.Factory {
 

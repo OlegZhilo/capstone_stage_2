@@ -1,15 +1,18 @@
-package ru.crypto.android.cryptomonitor.ui.list;
+package ru.crypto.android.cryptomonitor.ui.main;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.support.v13.app.FragmentPagerAdapter;
+
+import ru.crypto.android.cryptomonitor.ui.chart.ChartCurrencyFragment;
+import ru.crypto.android.cryptomonitor.ui.list.FavoriteCurrencyFragment;
 
 
 public class PagerAdapter extends FragmentPagerAdapter {
 
     private Fragment[] fragments = new Fragment[]{
             new FavoriteCurrencyFragment(),
-            new FavoriteCurrencyFragment()
+            new ChartCurrencyFragment()
     };
 
     public PagerAdapter(FragmentManager fm) {

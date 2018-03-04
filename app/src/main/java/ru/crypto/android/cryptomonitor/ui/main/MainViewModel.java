@@ -1,4 +1,4 @@
-package ru.crypto.android.cryptomonitor.ui.list;
+package ru.crypto.android.cryptomonitor.ui.main;
 
 
 import android.arch.lifecycle.LiveData;
@@ -24,11 +24,11 @@ public class MainViewModel extends BaseViewModel {
         this.currencyLiveData = new MutableLiveData<>();
     }
 
-    LiveData<List<Currency>> getCurrencyLiveData() {
+    public LiveData<List<Currency>> getCurrencyLiveData() {
         return currencyLiveData;
     }
 
-    void loadCurrencies() {
+    public void loadCurrencies() {
         subscribeIoHandleError(repository.getCurrencies(),
                 list -> currencyLiveData.postValue(list),
                 Timber::e);
