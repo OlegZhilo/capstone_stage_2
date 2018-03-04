@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Crypto Monitor</string>
+
+    <string name="currency_fmt" formatted="false">%s | %s</string>
+    <string name="currency_price_fmt" formatted="false">%s $</string>
+    <string name="currency_1h_change_fmt" formatted="false">1h: %s %%</string>
+    <string name="currency_24h_change_fmt" formatted="false">24h: %s %%</string>
+    <string name="currency_7d_change_fmt" formatted="false">7d: %s %%</string>
 </resources>

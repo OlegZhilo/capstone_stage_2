@@ -33,8 +33,10 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation support.appcompat7
+    implementation support.support
     implementation support.constraintLayout
     implementation support.recyclerview
+    implementation support.cardView
     implementation support.design
 
     implementation arch.androidArchComponents
@@ -71,4 +73,5 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    compile project(path: ':adapter')
 }
