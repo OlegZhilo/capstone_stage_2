@@ -63,7 +63,7 @@ public class BaseViewModel extends ViewModel {
         return observable.subscribeWith(resourceObserver);
     }
 
-    public MutableLiveData<Throwable> getErrorLiveData() {
+    public LiveData<Throwable> getErrorLiveData() {
         return errorLiveData;
     }
 

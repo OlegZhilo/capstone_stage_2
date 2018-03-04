@@ -9,6 +9,7 @@ import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasActivityInjector;
 import ru.crypto.android.cryptomonitor.app.dagger.DaggerAppComponent;
+import timber.log.Timber;
 
 public class App extends Application implements HasActivityInjector {
 
@@ -19,6 +20,7 @@ public class App extends Application implements HasActivityInjector {
     public void onCreate() {
         super.onCreate();
         initDi();
+        initLogger();
     }
 
     private void initDi() {
@@ -26,6 +28,11 @@ public class App extends Application implements HasActivityInjector {
                 .application(this)
                 .build()
                 .inject(this);
+    }
+
+
+    public static void initLogger(){
+        Timber.plant(new Timber.DebugTree());
     }
 
     @Override

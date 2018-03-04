@@ -27,10 +27,21 @@ public abstract class BaseFragment<M extends BaseViewModel> extends Fragment {
     }
 
     @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        initViews();
+        onStartVisibleView();
+    }
+
+    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initViewModel();
     }
+
+    protected abstract void initViews();
+
+    protected abstract void onStartVisibleView();
 
     protected abstract Class<? extends BaseViewModel> getViewModelClass();
 

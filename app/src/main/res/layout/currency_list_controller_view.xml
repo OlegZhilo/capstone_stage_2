@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="112dp">
+
+    <ImageView
+        android:id="@+id/currency_icon_tv"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_centerVertical="true"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/act" />
+
+    <TextView
+        android:id="@+id/currency_name_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="18dp"
+        android:textAppearance="@style/RobotoRegular.14"
+        app:layout_constraintStart_toEndOf="@+id/currency_icon_tv"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Bitcoin" />
+
+    <TextView
+        android:id="@+id/currency_price_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="16dp"
+        android:textAppearance="@style/RobotoBold.16"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="123.123 $" />
+
+    <View
+        android:id="@+id/devider"
+        android:layout_width="0px"
+        android:layout_height="1dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/gray_300"
+        app:layout_constraintEnd_toEndOf="@id/currency_price_tv"
+        app:layout_constraintStart_toStartOf="@id/currency_name_tv"
+        app:layout_constraintTop_toBottomOf="@id/currency_name_tv" />
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="32dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/currency_price_tv"
+        app:layout_constraintStart_toStartOf="@id/currency_name_tv"
+        app:layout_constraintTop_toBottomOf="@id/devider">
+
+        <TextView
+            android:id="@+id/currency_1_h_changes_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:textAppearance="@style/RobotoBold.14"
+            tools:text="1h: 1.2%" />
+
+        <TextView
+            android:id="@+id/currency_24_h_changes_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:textAppearance="@style/RobotoBold.14"
+            tools:text="1h: 1.2%" />
+
+        <TextView
+            android:id="@+id/currency_7_d_changes_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:textAppearance="@style/RobotoBold.14"
+            tools:text="1h: 1.2%" />
+
+    </RelativeLayout>
+
+</android.support.constraint.ConstraintLayout>
