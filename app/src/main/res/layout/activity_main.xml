@@ -1,22 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.list.MainActivity">
+    tools:context=".ui.main.MainActivity">
 
-    <TextView
-        android:text="@string/app_name"
-        android:gravity="center"
+    <ru.crypto.android.cryptomonitor.ui.view.LockableViewPager
+        android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/view_pager"
+    <ru.crypto.android.cryptomonitor.ui.view.manager.ArcView
+        android:id="@+id/bottom_menu"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="56dp"
+        android:layout_gravity="bottom"
+        android:background="@drawable/ic_shape"
+        android:elevation="8dp"
+        android:paddingEnd="56dp"
+        android:paddingStart="56dp"
+        app:arc_cropDirection="outside"
+        app:arc_height="12dp"
+        app:arc_position="top">
 
-    </android.support.v4.view.ViewPager>
+        <ImageView
+            android:id="@+id/list_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:background="?selectableItemBackgroundBorderless"
+            android:padding="8dp"
+            android:tint="@color/bottom_btn_states"
+            app:srcCompat="@drawable/ic_list" />
 
-</android.support.constraint.ConstraintLayout>
+        <ImageView
+            android:id="@+id/chart_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|end"
+            android:background="?selectableItemBackgroundBorderless"
+            android:padding="8dp"
+            android:tint="@color/bottom_btn_states"
+            app:srcCompat="@drawable/ic_chart" />
+    </ru.crypto.android.cryptomonitor.ui.view.manager.ArcView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/add_currency_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_add"
+        app:backgroundTint="@android:color/white"
+        app:elevation="12dp"
+        app:fabSize="normal"
+        app:layout_anchor="@id/bottom_menu"
+        app:layout_anchorGravity="top|center"
+        app:useCompatPadding="true" />
+
+</android.support.design.widget.CoordinatorLayout>

@@ -1,4 +1,4 @@
-package ru.crypto.android.cryptomonitor.ui.list.controllers;
+package ru.crypto.android.cryptomonitor.ui.chart.controller;
 
 import android.graphics.Typeface;
 import android.support.annotation.NonNull;
@@ -23,7 +23,7 @@ import ru.surfstudio.easyadapter.recycler.controller.BindableItemController;
 import ru.surfstudio.easyadapter.recycler.holder.BindableViewHolder;
 import timber.log.Timber;
 
-public class CurrencyController extends BindableItemController<Currency, CurrencyController.Holder> {
+public class ChartCurrencyController extends BindableItemController<Currency, ChartCurrencyController.Holder> {
 
 
     @Override
@@ -48,7 +48,7 @@ public class CurrencyController extends BindableItemController<Currency, Currenc
         DecimalFormat priceFormat = new DecimalFormat("#.##");
 
         public Holder(ViewGroup parent) {
-            super(parent, R.layout.currency_card_view);
+            super(parent, R.layout.chart_currency_card_view);
             currencyNameTv = itemView.findViewById(R.id.currency_name_tv);
             currencyPriceTv = itemView.findViewById(R.id.currency_price_tv);
             currencyIconIv = itemView.findViewById(R.id.currency_icon_tv);

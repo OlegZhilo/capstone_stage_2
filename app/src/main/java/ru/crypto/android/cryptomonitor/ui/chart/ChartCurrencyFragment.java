@@ -1,4 +1,4 @@
-package ru.crypto.android.cryptomonitor.ui.list;
+package ru.crypto.android.cryptomonitor.ui.chart;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,31 +16,24 @@ import ru.crypto.android.cryptomonitor.R;
 import ru.crypto.android.cryptomonitor.domain.Currency;
 import ru.crypto.android.cryptomonitor.ui.base.BaseFragment;
 import ru.crypto.android.cryptomonitor.ui.base.BaseViewModel;
-import ru.crypto.android.cryptomonitor.ui.list.controllers.CurrencyController;
+import ru.crypto.android.cryptomonitor.ui.chart.controller.ChartCurrencyController;
 import ru.crypto.android.cryptomonitor.ui.main.MainViewModel;
 import ru.surfstudio.easyadapter.recycler.EasyAdapter;
 import ru.surfstudio.easyadapter.recycler.ItemList;
 
-
-public class FavoriteCurrencyFragment extends BaseFragment<MainViewModel> {
-
-    private static final String TAG = FavoriteCurrencyFragment.class.getSimpleName();
+public class ChartCurrencyFragment extends BaseFragment<MainViewModel> {
 
     @BindView(R.id.recycler)
     RecyclerView recyclerView;
 
     private EasyAdapter adapter = new EasyAdapter();
 
-    private CurrencyController currencyController = new CurrencyController();
+    private ChartCurrencyController chartCurrencyController = new ChartCurrencyController();
 
     @Override
     protected void initViews() {
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         recyclerView.setAdapter(adapter);
-
-//        recyclerView.setItemViewCacheSize(50);
-//        recyclerView.setDrawingCacheEnabled(true);
-//        recyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
     }
 
     @Override
@@ -57,12 +50,12 @@ public class FavoriteCurrencyFragment extends BaseFragment<MainViewModel> {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.favorite_currency_fragment, container, false);
+        View view = inflater.inflate(R.layout.chart_currency_fragment, container, false);
         ButterKnife.bind(this, view);
         return view;
     }
 
     private void render(List<Currency> list) {
-        adapter.setItems(ItemList.create().addAll(list, currencyController));
+        adapter.setItems(ItemList.create().addAll(list, chartCurrencyController));
     }
 }
