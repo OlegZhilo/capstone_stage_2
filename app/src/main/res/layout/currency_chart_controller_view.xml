@@ -1,7 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="56dp"
+    app:layout_constraintDimensionRatio="1">
+
+    <ImageView
+        android:id="@+id/currency_icon_tv"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_centerVertical="true"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/act" />
+
+    <TextView
+        android:id="@+id/currency_symbol_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:textAppearance="@style/RobotoMedium.14"
+        app:layout_constraintStart_toEndOf="@id/currency_icon_tv"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="BTC" />
+
+    <TextView
+        android:id="@+id/currency_name_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxWidth="90dp"
+        android:singleLine="true"
+        android:textAppearance="@style/RobotoRegular.12"
+        android:textColor="?android:attr/textColorTertiary"
+        app:layout_constraintStart_toStartOf="@id/currency_symbol_tv"
+        app:layout_constraintTop_toBottomOf="@id/currency_symbol_tv"
+        tools:text="Bitcoin" />
+
+    <TextView
+        android:id="@+id/currency_price_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:textAppearance="@style/RobotoMedium.14"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="$123.123" />
+
+    <TextView
+        android:id="@+id/currency_1_h_changes_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/RobotoBold.12"
+        app:layout_constraintEnd_toEndOf="@id/currency_price_tv"
+        app:layout_constraintTop_toBottomOf="@id/currency_price_tv"
+        tools:text="1h: 1.2%" />
 
 </android.support.constraint.ConstraintLayout>
