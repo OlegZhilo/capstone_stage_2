@@ -59,7 +59,7 @@ dependencies {
     implementation dagger.daggerAndroid
     annotationProcessor dagger.daggerAndroidCompiler
 
-    //data pesistent
+    //data persistent
     implementation gServices.firebaseDb
 
     //netWork
@@ -70,7 +70,10 @@ dependencies {
     implementation netWork.timber
     implementation netWork.logInterceptor
 
-//    implementation 'com.github.florent37:shapeofview:1.0.6'
+    //ui
+    implementation ui.chartsView
+
+    implementation streams.streamApi
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
