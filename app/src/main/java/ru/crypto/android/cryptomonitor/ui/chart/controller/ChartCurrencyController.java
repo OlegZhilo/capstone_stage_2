@@ -9,6 +9,7 @@ import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -51,16 +52,19 @@ public class ChartCurrencyController extends BindableItemController<Currency, Ch
             currencySymbolTv = itemView.findViewById(R.id.currency_symbol_tv);
             currencyPriceTv = itemView.findViewById(R.id.currency_price_tv);
             currencyIconIv = itemView.findViewById(R.id.currency_icon_tv);
-            currency1hChangeTv = itemView.findViewById(R.id.currency_1_h_changes_tv);
+//            currency1hChangeTv = itemView.findViewById(R.id.currency_1_h_changes_tv);
         }
 
         @Override
         public void bind(Currency data) {
+            itemView.setOnClickListener(v -> {
+
+            });
             currencyIconIv.setImageResource(getDrawable(data));
             currencyNameTv.setText(data.getName());
             currencySymbolTv.setText(data.getSymbol());
             currencyPriceTv.setText(getCurrencyPrice(data));
-            currency1hChangeTv.setText(getCurrency1hChange(data));
+//            currency1hChangeTv.setText(getCurrency1hChange(data));
         }
 
     }

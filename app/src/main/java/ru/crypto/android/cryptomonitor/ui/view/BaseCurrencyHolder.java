@@ -4,9 +4,11 @@ import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.text.TextUtilsCompat;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.Spanned;
+import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.view.ViewGroup;
@@ -21,7 +23,7 @@ import ru.surfstudio.easyadapter.recycler.holder.BindableViewHolder;
 
 public abstract class BaseCurrencyHolder extends BindableViewHolder<Currency> {
 
-    DecimalFormat priceFormat = new DecimalFormat("#.##");
+    DecimalFormat priceFormat = new DecimalFormat("#.####");
 
     public BaseCurrencyHolder(ViewGroup parent, int layoutRes) {
         super(parent, layoutRes);
@@ -63,11 +65,13 @@ public abstract class BaseCurrencyHolder extends BindableViewHolder<Currency> {
     private Spannable getSpannedCurrencyChange(@StringRes int stringFmt, String currencyRate) {
         String formattedCurrency = getString(stringFmt, new String[]{currencyRate});
         Spannable spannable = new SpannableString(formattedCurrency);
-        int color = currencyRate.contains("-") ? R.color.red_600 : R.color.green_600;
-        spannable.setSpan(new ForegroundColorSpan(ContextCompat.getColor(itemView.getContext(), color)),
-                formattedCurrency.indexOf(currencyRate),
-                formattedCurrency.length(),
-                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        if (!TextUtils.isEmpty(currencyRate)) {
+            int color = currencyRate.contains("-") ? R.color.red_600 : R.color.green_600;
+            spannable.setSpan(new ForegroundColorSpan(ContextCompat.getColor(itemView.getContext(), color)),
+                    formattedCurrency.indexOf(currencyRate),
+                    formattedCurrency.length(),
+                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }
         return spannable;
     }
 
