@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "748556687014",
+    "firebase_url": "https://crypto-monitor-d7f27.firebaseio.com",
+    "project_id": "crypto-monitor-d7f27",
+    "storage_bucket": "crypto-monitor-d7f27.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:748556687014:android:adff9a109cb93e63",
+        "android_client_info": {
+          "package_name": "ru.crypto.android.cryptomonitor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "748556687014-pe9r9grraqja1p5fgp9c28872sjqr09p.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ru.crypto.android.cryptomonitor",
+            "certificate_hash": "ce55b4a001c1c7741e1c720f0451afae68b4ff1c"
+          }
+        },
+        {
+          "client_id": "748556687014-64gs8tibk6n4hgfce9qsqffoq4t8t1ii.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC2QRCv2q5BrU1Ree_u9OTduztSl4h3waQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "748556687014-64gs8tibk6n4hgfce9qsqffoq4t8t1ii.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

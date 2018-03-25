@@ -49,7 +49,7 @@ public class ChartCurrencyController extends BindableItemController<Currency, Ch
         public Holder(ViewGroup parent) {
             super(parent, R.layout.chart_currency_card_view);
             currencyNameTv = itemView.findViewById(R.id.currency_name_tv);
-            currencySymbolTv = itemView.findViewById(R.id.currency_symbol_tv);
+//            currencySymbolTv = itemView.findViewById(R.id.currency_symbol_tv);
             currencyPriceTv = itemView.findViewById(R.id.currency_price_tv);
             currencyIconIv = itemView.findViewById(R.id.currency_icon_tv);
 //            currency1hChangeTv = itemView.findViewById(R.id.currency_1_h_changes_tv);
@@ -62,7 +62,7 @@ public class ChartCurrencyController extends BindableItemController<Currency, Ch
             });
             currencyIconIv.setImageResource(getDrawable(data));
             currencyNameTv.setText(data.getName());
-            currencySymbolTv.setText(data.getSymbol());
+//            currencySymbolTv.setText(data.getSymbol());
             currencyPriceTv.setText(getCurrencyPrice(data));
 //            currency1hChangeTv.setText(getCurrency1hChange(data));
         }

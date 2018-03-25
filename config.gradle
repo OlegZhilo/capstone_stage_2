@@ -67,7 +67,7 @@ ext {
     ]
 
     gServices = [
-            firebaseDb: "com.google.firebase:firebase-database:$versions.firebase"
+            firebaseCore: "com.google.firebase:firebase-core:$versions.firebase"
     ]
 
     ui = [

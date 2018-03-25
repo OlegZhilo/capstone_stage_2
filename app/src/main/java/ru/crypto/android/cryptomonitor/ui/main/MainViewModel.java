@@ -44,7 +44,7 @@ public class MainViewModel extends BaseViewModel {
     }
 
     public void load(String fromSym, Period period) {
-        subscribeIoHandleError(repository.getHistory(fromSym, period),
+        subscribeIoHandleError(repository.getCurrencyHistory(fromSym, period),
                 chartData -> chartLiveData.postValue(chartData),
                 Timber::e);
     }

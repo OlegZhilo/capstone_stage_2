@@ -1,10 +1,15 @@
 package ru.crypto.android.cryptomonitor.repository;
 
 
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.List;
 
 import javax.inject.Inject;
 
+import durdinapps.rxfirebase2.RxFirebaseDatabase;
+import io.reactivex.Completable;
+import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import ru.crypto.android.cryptomonitor.app.dagger.scope.PerApplication;
 import ru.crypto.android.cryptomonitor.domain.ChartData;
@@ -32,7 +37,7 @@ public class CurrencyRepository {
                 .map(TransformUtil::transformCollection);
     }
 
-    public Observable<List<ChartData>> getHistory(String fromSym, Period period) {
+    public Observable<List<ChartData>> getCurrencyHistory(String fromSym, Period period) {
         switch (period) {
             case DAY:
                 return currencyApi.getHistoryHours(fromSym, TO_SYM, period.getCount())

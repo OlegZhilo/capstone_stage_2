@@ -60,7 +60,7 @@ dependencies {
     annotationProcessor dagger.daggerAndroidCompiler
 
     //data persistent
-    implementation gServices.firebaseDb
+    implementation gServices.firebaseCore
 
     //netWork
     implementation netWork.retrofit
@@ -80,3 +80,4 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     compile project(path: ':adapter')
 }
+apply plugin: 'com.google.gms.google-services'

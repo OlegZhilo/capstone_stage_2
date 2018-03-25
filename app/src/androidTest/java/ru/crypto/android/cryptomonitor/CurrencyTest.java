@@ -13,7 +13,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import ru.crypto.android.cryptomonitor.base.DaggerTestAppComponent;
 import ru.crypto.android.cryptomonitor.domain.ChartData;
 import ru.crypto.android.cryptomonitor.domain.Currency;
 import ru.crypto.android.cryptomonitor.repository.CurrencyRepository;
@@ -49,16 +48,16 @@ public class CurrencyTest {
     @Test
     public void loadChart() {
         String fromSymbol = "BTC";
-        List<ChartData> chartDataList = NetworkRequestUtil.makeRequest(repository.getHistory(fromSymbol, Period.DAY));
+        List<ChartData> chartDataList = NetworkRequestUtil.makeRequest(repository.getCurrencyHistory(fromSymbol, Period.DAY));
         Assert.assertEquals(true, chartDataList.size() >= Period.DAY.getCount());
 
-        chartDataList = NetworkRequestUtil.makeRequest(repository.getHistory(fromSymbol, Period.WEEK));
+        chartDataList = NetworkRequestUtil.makeRequest(repository.getCurrencyHistory(fromSymbol, Period.WEEK));
         Assert.assertEquals(true, chartDataList.size() >= Period.WEEK.getCount());
 
-        chartDataList = NetworkRequestUtil.makeRequest(repository.getHistory(fromSymbol, Period.MONTH));
+        chartDataList = NetworkRequestUtil.makeRequest(repository.getCurrencyHistory(fromSymbol, Period.MONTH));
         Assert.assertEquals(true, chartDataList.size() >= Period.MONTH.getCount());
 
-        chartDataList = NetworkRequestUtil.makeRequest(repository.getHistory(fromSymbol, Period.YEAR));
+        chartDataList = NetworkRequestUtil.makeRequest(repository.getCurrencyHistory(fromSymbol, Period.YEAR));
         Assert.assertEquals(true, chartDataList.size() >= Period.YEAR.getCount());
     }
 }
