@@ -3,15 +3,21 @@ package ru.crypto.android.cryptomonitor.domain;
 
 public class Currency {
 
-    private String id;
-    private String name;
-    private String volume24hUsd;
-    private String percentChange1H;
-    private String percentChange24H;
-    private String percentChange7D;
-    private String priceUsd;
-    private String rank;
-    private String symbol;
+    private static final String EMPTY_STR = "";
+
+    private String id = EMPTY_STR;
+    private String name = EMPTY_STR;
+    private String volume24hUsd = EMPTY_STR;
+    private String percentChange1H = EMPTY_STR;
+    private String percentChange24H = EMPTY_STR;
+    private String percentChange7D = EMPTY_STR;
+    private String priceUsd = EMPTY_STR;
+    private String rank = EMPTY_STR;
+    private String symbol = EMPTY_STR;
+
+    public Currency() {
+        //stub constructor
+    }
 
     public Currency(String id,
                     String name,
@@ -67,5 +73,20 @@ public class Currency {
 
     public String getSymbol() {
         return symbol;
+    }
+
+    @Override
+    public String toString() {
+        return "Currency{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", volume24hUsd='" + volume24hUsd + '\'' +
+                ", percentChange1H='" + percentChange1H + '\'' +
+                ", percentChange24H='" + percentChange24H + '\'' +
+                ", percentChange7D='" + percentChange7D + '\'' +
+                ", priceUsd='" + priceUsd + '\'' +
+                ", rank='" + rank + '\'' +
+                ", symbol='" + symbol + '\'' +
+                '}';
     }
 }

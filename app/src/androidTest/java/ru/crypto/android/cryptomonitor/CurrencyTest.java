@@ -1,5 +1,6 @@
 package ru.crypto.android.cryptomonitor;
 
+import android.support.test.InstrumentationRegistry;
 import android.support.test.filters.SmallTest;
 import android.support.test.runner.AndroidJUnit4;
 
@@ -13,6 +14,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import ru.crypto.android.cryptomonitor.base.DaggerTestAppComponent;
 import ru.crypto.android.cryptomonitor.domain.ChartData;
 import ru.crypto.android.cryptomonitor.domain.Currency;
 import ru.crypto.android.cryptomonitor.repository.CurrencyRepository;
@@ -28,17 +30,20 @@ public class CurrencyTest {
 
     @Before
     public void init() {
-        DaggerTestAppComponent.builder().build().inject(this);
+        DaggerTestAppComponent.builder()
+                .context(InstrumentationRegistry.getContext())
+                .build()
+                .inject(this);
     }
 
     @Test
-    public void loadCurrencies() {
+    public void loadCurrenciesTest() {
         List<Currency> currencyList = NetworkRequestUtil.makeRequest(repository.getCurrencies());
         Assert.assertEquals(true, !currencyList.isEmpty());
     }
 
     @Test
-    public void loadCurrency() {
+    public void loadSingleCurrencyTest() {
         String id = "bitcoin";
         List<Currency> currencyList = NetworkRequestUtil.makeRequest(repository.getCurrency(id));
         Assert.assertEquals(true, !currencyList.isEmpty());
@@ -46,9 +51,38 @@ public class CurrencyTest {
     }
 
     @Test
+    public void saveToDbCurrenciesTest() {
+        repository.clearCurrencyTable();
+        List<Currency> currenciesNetwork = NetworkRequestUtil.makeRequest(repository.getCurrencies());
+        int createdCount = repository.saveCurrencies(currenciesNetwork);
+        List<Currency> currenciesCached = repository.getCachedCurrencies();
+
+        Assert.assertEquals(currenciesNetwork.size(), createdCount);
+        Assert.assertEquals(currenciesNetwork.size(), currenciesCached.size());
+    }
+
+    @Test
+    public void deleteRowsTest() {
+        repository.clearCurrencyTable();
+        List<Currency> currenciesNetwork = NetworkRequestUtil.makeRequest(repository.getCurrencies());
+        repository.saveCurrencies(currenciesNetwork);
+
+        Currency currencyForDelete = currenciesNetwork.get(0);
+        int deletedCount = repository.deleteCurrency(currencyForDelete);
+        List<Currency> currenciesCached = repository.getCachedCurrencies();
+
+        Assert.assertEquals(deletedCount, currenciesNetwork.size() - currenciesCached.size());
+        Assert.assertEquals(false, currenciesCached.contains(currencyForDelete));
+
+        deletedCount = repository.clearCurrencyTable();
+        Assert.assertEquals(currenciesCached.size(), deletedCount);
+    }
+
+    @Test
     public void loadChart() {
         String fromSymbol = "BTC";
         List<ChartData> chartDataList = NetworkRequestUtil.makeRequest(repository.getCurrencyHistory(fromSymbol, Period.DAY));
+
         Assert.assertEquals(true, chartDataList.size() >= Period.DAY.getCount());
 
         chartDataList = NetworkRequestUtil.makeRequest(repository.getCurrencyHistory(fromSymbol, Period.WEEK));

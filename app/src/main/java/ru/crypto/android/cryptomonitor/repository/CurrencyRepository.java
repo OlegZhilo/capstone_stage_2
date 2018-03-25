@@ -1,19 +1,26 @@
 package ru.crypto.android.cryptomonitor.repository;
 
 
-import com.google.firebase.database.FirebaseDatabase;
+import android.content.ContentResolver;
+import android.content.ContentUris;
+import android.content.ContentValues;
+import android.support.annotation.NonNull;
 
+import com.annimon.stream.Stream;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
-import durdinapps.rxfirebase2.RxFirebaseDatabase;
-import io.reactivex.Completable;
-import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import ru.crypto.android.cryptomonitor.app.dagger.scope.PerApplication;
 import ru.crypto.android.cryptomonitor.domain.ChartData;
 import ru.crypto.android.cryptomonitor.domain.Currency;
+import ru.crypto.android.cryptomonitor.provider.currency.CurrencyContentValues;
+import ru.crypto.android.cryptomonitor.provider.currency.CurrencyContract;
+import ru.crypto.android.cryptomonitor.provider.currency.CurrencyCursor;
+import ru.crypto.android.cryptomonitor.provider.currency.CurrencySelection;
 import ru.crypto.android.cryptomonitor.repository.utils.TransformUtil;
 
 @PerApplication
@@ -21,10 +28,12 @@ public class CurrencyRepository {
 
     private static final String TO_SYM = "USD";
     private CurrencyApi currencyApi;
+    private ContentResolver contentResolver;
 
     @Inject
-    public CurrencyRepository(CurrencyApi currencyApi) {
+    public CurrencyRepository(CurrencyApi currencyApi, ContentResolver contentResolver) {
         this.currencyApi = currencyApi;
+        this.contentResolver = contentResolver;
     }
 
     public Observable<List<Currency>> getCurrencies() {
@@ -52,5 +61,48 @@ public class CurrencyRepository {
                 default:
                     throw new IllegalArgumentException("Unsupported Period: " + period.name());
         }
+    }
+
+    public long saveCurrency(Currency currency) {
+        return ContentUris.parseId(getCurrencyContentValues(currency).insert(contentResolver));
+    }
+
+    public int saveCurrencies(List<Currency> currencies) {
+        ContentValues[] currencyContentValues = Stream.of(currencies)
+                .map(this::getCurrencyContentValues)
+                .map(CurrencyContentValues::values)
+                .toArray(ContentValues[]::new);
+        return contentResolver.bulkInsert(CurrencyContract.CONTENT_URI, currencyContentValues);
+    }
+
+    public List<Currency> getCachedCurrencies() {
+        CurrencySelection currencySelection = new CurrencySelection();
+        CurrencyCursor currencyCursor = currencySelection.query(contentResolver);
+        List<Currency> currencyList = new ArrayList<>();
+        currencyList.addAll(currencyCursor.getCurrencies());
+        return currencyList;
+    }
+
+    public int deleteCurrency(Currency currency) {
+        CurrencySelection selection = new CurrencySelection();
+        selection.id(currency.getId());
+        return selection.delete(contentResolver);
+    }
+
+    public int clearCurrencyTable() {
+        return new CurrencySelection().delete(contentResolver);
+    }
+
+    @NonNull
+    private CurrencyContentValues getCurrencyContentValues(Currency currency) {
+        CurrencyContentValues values = new CurrencyContentValues();
+        values.putId(currency.getId());
+        values.putName(currency.getName());
+        values.putPercentchange1h(currency.getPercentChange1H());
+        values.putPercentchange7d(currency.getPercentChange7D());
+        values.putPercentchange24h(currency.getPercentChange24H());
+        values.putRank(currency.getRank());
+        values.putSymbol(currency.getSymbol());
+        return values;
     }
 }
