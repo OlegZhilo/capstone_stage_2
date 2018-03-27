@@ -4,7 +4,7 @@ ext {
             applicationId    : "ru.crypto.android.cryptomonitor",
             versionCode      : 1,
             versionName      : "1",
-            buildToolsVersion: "26.0.2",
+            buildToolsVersion: "27.0.3",
             minSdkVersion    : 21,
             targetSdkVersion : 27,
             compileSdkVersion: 26,
