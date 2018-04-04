@@ -9,6 +9,9 @@ import ru.crypto.android.cryptomonitor.domain.Currency;
 import ru.crypto.android.cryptomonitor.ui.view.BaseCurrencyHolder;
 import ru.surfstudio.easyadapter.recycler.controller.BindableItemController;
 
+import static ru.crypto.android.cryptomonitor.ui.view.Utils.getDrawableForCurrency;
+import static ru.crypto.android.cryptomonitor.ui.view.Utils.getSpannedCurrencyString;
+
 public class CurrencyController extends BindableItemController<Currency, CurrencyController.Holder> {
 
 
@@ -43,8 +46,8 @@ public class CurrencyController extends BindableItemController<Currency, Currenc
 
         @Override
         public void bind(Currency data) {
-            currencyIconIv.setImageResource(getDrawable(data));
-            currencyNameTv.setText(getSpannedCurrencyString(data));
+            currencyIconIv.setImageResource(getDrawableForCurrency(itemView.getContext(), data));
+            currencyNameTv.setText(getSpannedCurrencyString(itemView.getContext(), data));
             currencyPriceTv.setText(getCurrencyPrice(data));
             currency1hChangeTv.setText(getCurrency1hChange(data));
             currency24hChangeTv.setText(getCurrency24hChange(data));

@@ -62,11 +62,10 @@ public class EasyAdapter extends RecyclerView.Adapter {
     @Override
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
-        LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
-        initLayoutManager(layoutManager);
+        initLayoutManager(recyclerView.getLayoutManager());
     }
 
-    private void initLayoutManager(LinearLayoutManager layoutManager) {
+    private void initLayoutManager(RecyclerView.LayoutManager layoutManager) {
         if (layoutManager instanceof GridLayoutManager) {
             final GridLayoutManager castedLayoutManager = (GridLayoutManager) layoutManager;
             final GridLayoutManager.SpanSizeLookup existingLookup = castedLayoutManager.getSpanSizeLookup();

@@ -1,29 +1,15 @@
 package ru.crypto.android.cryptomonitor.ui.chart.controller;
 
-import android.graphics.Typeface;
-import android.support.annotation.NonNull;
-import android.support.annotation.StringRes;
-import android.support.v4.content.ContextCompat;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.Spanned;
-import android.text.style.ForegroundColorSpan;
-import android.text.style.StyleSpan;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
-import java.util.Locale;
 
 import ru.crypto.android.cryptomonitor.R;
 import ru.crypto.android.cryptomonitor.domain.Currency;
 import ru.crypto.android.cryptomonitor.ui.view.BaseCurrencyHolder;
 import ru.surfstudio.easyadapter.recycler.controller.BindableItemController;
-import ru.surfstudio.easyadapter.recycler.holder.BindableViewHolder;
-import timber.log.Timber;
+
+import static ru.crypto.android.cryptomonitor.ui.view.Utils.getDrawableForCurrency;
 
 public class ChartCurrencyController extends BindableItemController<Currency, ChartCurrencyController.Holder> {
 
@@ -60,7 +46,7 @@ public class ChartCurrencyController extends BindableItemController<Currency, Ch
             itemView.setOnClickListener(v -> {
 
             });
-            currencyIconIv.setImageResource(getDrawable(data));
+            currencyIconIv.setImageResource(getDrawableForCurrency(itemView.getContext(),data));
             currencyNameTv.setText(data.getName());
 //            currencySymbolTv.setText(data.getSymbol());
             currencyPriceTv.setText(getCurrencyPrice(data));

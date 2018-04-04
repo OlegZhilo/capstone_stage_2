@@ -10,4 +10,6 @@
     <string name="week">Week</string>
     <string name="month">Month</string>
     <string name="year">Year</string>
+    <string name="action_search">Search</string>
+    <string name="add_currency">Add currency</string>
 </resources>

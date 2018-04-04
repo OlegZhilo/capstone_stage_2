@@ -8,6 +8,7 @@ import java.util.List;
 
 import ru.crypto.android.cryptomonitor.domain.Currency;
 import ru.crypto.android.cryptomonitor.provider.base.AbstractCursor;
+import ru.crypto.android.cryptomonitor.repository.CurrencyRepository;
 
 /**
  * Cursor wrapper for the {@code currency} table.
@@ -27,7 +28,7 @@ public class CurrencyCursor extends AbstractCursor {
     }
 
     public Currency getCurrency() {
-        return new Currency(
+        Currency currency =  new Currency(
                 getId(),
                 getName(),
                 getPercentchange24h(),
@@ -37,6 +38,8 @@ public class CurrencyCursor extends AbstractCursor {
                 getPriceusd(),
                 getRank(),
                 getSymbol());
+        currency.setFavorite(true);
+        return currency;
     }
 
     public List<Currency> getCurrencies() {
