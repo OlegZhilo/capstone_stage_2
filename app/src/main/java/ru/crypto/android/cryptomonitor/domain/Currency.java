@@ -1,6 +1,8 @@
 package ru.crypto.android.cryptomonitor.domain;
 
 
+import java.util.Objects;
+
 public class Currency {
 
     private static final String EMPTY_STR = "";
@@ -14,6 +16,7 @@ public class Currency {
     private String priceUsd = EMPTY_STR;
     private String rank = EMPTY_STR;
     private String symbol = EMPTY_STR;
+    private boolean isFavorite;
 
     public Currency() {
         //stub constructor
@@ -37,6 +40,15 @@ public class Currency {
         this.priceUsd = priceUsd;
         this.rank = rank;
         this.symbol = symbol;
+        this.isFavorite = false;
+    }
+
+    public boolean isFavorite() {
+        return isFavorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        isFavorite = favorite;
     }
 
     public String getId() {
@@ -88,5 +100,27 @@ public class Currency {
                 ", rank='" + rank + '\'' +
                 ", symbol='" + symbol + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Currency currency = (Currency) o;
+        return isFavorite == currency.isFavorite &&
+                Objects.equals(id, currency.id) &&
+                Objects.equals(name, currency.name) &&
+                Objects.equals(volume24hUsd, currency.volume24hUsd) &&
+                Objects.equals(percentChange1H, currency.percentChange1H) &&
+                Objects.equals(percentChange24H, currency.percentChange24H) &&
+                Objects.equals(percentChange7D, currency.percentChange7D) &&
+                Objects.equals(priceUsd, currency.priceUsd) &&
+                Objects.equals(rank, currency.rank) &&
+                Objects.equals(symbol, currency.symbol);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, volume24hUsd, percentChange1H, percentChange24H, percentChange7D, priceUsd, rank, symbol, isFavorite);
     }
 }

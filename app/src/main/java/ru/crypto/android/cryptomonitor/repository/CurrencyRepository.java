@@ -8,7 +8,6 @@ import android.support.annotation.NonNull;
 
 import com.annimon.stream.Stream;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -58,8 +57,8 @@ public class CurrencyRepository {
                 return currencyApi.getHistoryDays(fromSym, TO_SYM, period.getCount())
                         .map(chartDataResponse -> chartDataResponse.chartValues)
                         .map(TransformUtil::transformCollection);
-                default:
-                    throw new IllegalArgumentException("Unsupported Period: " + period.name());
+            default:
+                throw new IllegalArgumentException("Unsupported Period: " + period.name());
         }
     }
 
@@ -78,12 +77,30 @@ public class CurrencyRepository {
     public List<Currency> getCachedCurrencies() {
         CurrencySelection currencySelection = new CurrencySelection();
         CurrencyCursor currencyCursor = currencySelection.query(contentResolver);
-        List<Currency> currencyList = new ArrayList<>();
-        currencyList.addAll(currencyCursor.getCurrencies());
-        return currencyList;
+        return currencyCursor.getCurrencies();
     }
 
-    public int deleteCurrency(Currency currency) {
+    public Observable<List<Currency>> getMergedCurrencies() {
+        return getCurrencies()
+                .onErrorReturnItem(getCachedCurrencies())
+                .flatMap(remoteCurrencies -> getAsyncCachedCurrencies(), (remoteCurrencies, localCurrencies) ->
+                        Stream.of(remoteCurrencies)
+                                .map(remoteCurrency -> {
+                                    boolean isCached = Stream.of(localCurrencies)
+                                            .anyMatch(localCurrency -> localCurrency.getId().equals(remoteCurrency.getId()));
+                                    if (isCached) {
+                                        remoteCurrency.setFavorite(true);
+                                    }
+                                    return remoteCurrency;
+                                })
+                                .toList());
+    }
+
+    public Observable<List<Currency>> getAsyncCachedCurrencies() {
+        return Observable.fromCallable(this::getCachedCurrencies);
+    }
+
+    public long deleteCurrency(Currency currency) {
         CurrencySelection selection = new CurrencySelection();
         selection.id(currency.getId());
         return selection.delete(contentResolver);

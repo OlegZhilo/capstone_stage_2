@@ -67,6 +67,10 @@ public class BaseViewModel extends ViewModel {
         return errorLiveData;
     }
 
+    public SchedulersProvider getSchedulersProvider() {
+        return schedulersProvider;
+    }
+
     private void handleError(Throwable e, Consumer<Throwable> onError) {
         //getView().handleError(e);
         errorLiveData.postValue(e);

@@ -2,6 +2,7 @@ package ru.crypto.android.cryptomonitor.ui.main;
 
 
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -12,6 +13,7 @@ import android.widget.ImageView;
 
 import butterknife.BindView;
 import ru.crypto.android.cryptomonitor.R;
+import ru.crypto.android.cryptomonitor.ui.addcurrency.AddCurrencyActivity;
 import ru.crypto.android.cryptomonitor.ui.base.BaseAсtivity;
 import ru.crypto.android.cryptomonitor.ui.base.BaseViewModel;
 
@@ -45,9 +47,7 @@ public class MainActivity extends BaseAсtivity<MainViewModel> {
         viewPager.setAdapter(pagerAdapter);
         showList();
 
-        addCurrencyFab.setOnClickListener(v -> {
-
-        });
+        addCurrencyFab.setOnClickListener(v -> startActivity(new Intent(this, AddCurrencyActivity.class)));
 
         currencyListBtn.setOnClickListener(v -> showList());
 

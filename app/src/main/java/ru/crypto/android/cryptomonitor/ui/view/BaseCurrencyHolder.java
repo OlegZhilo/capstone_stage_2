@@ -21,6 +21,8 @@ import ru.crypto.android.cryptomonitor.R;
 import ru.crypto.android.cryptomonitor.domain.Currency;
 import ru.surfstudio.easyadapter.recycler.holder.BindableViewHolder;
 
+import static ru.crypto.android.cryptomonitor.ui.view.Utils.getString;
+
 public abstract class BaseCurrencyHolder extends BindableViewHolder<Currency> {
 
     DecimalFormat priceFormat = new DecimalFormat("#.####");
@@ -34,9 +36,12 @@ public abstract class BaseCurrencyHolder extends BindableViewHolder<Currency> {
     }
 
     protected String getCurrencyPrice(Currency data) {
+        if (TextUtils.isEmpty(data.getPriceUsd())) {
+            return getString(itemView.getContext(), R.string.currency_price_fmt, new String[]{"-"});
+        }
         double price = Double.parseDouble(data.getPriceUsd());
         String formatedPrice = priceFormat.format(price);
-        return getString(R.string.currency_price_fmt, new String[]{formatedPrice});
+        return getString(itemView.getContext(), R.string.currency_price_fmt, new String[]{formatedPrice});
     }
 
     protected Spannable getCurrency1hChange(Currency data) {
@@ -51,19 +56,19 @@ public abstract class BaseCurrencyHolder extends BindableViewHolder<Currency> {
         return getSpannedCurrencyChange(R.string.currency_7d_change_fmt, data.getPercentChange7D());
     }
 
-    protected Spannable getSpannedCurrencyString(Currency data) {
-        String formattedCurrency = getString(R.string.currency_fmt, new String[]{data.getSymbol(), data.getName()});
-        Spannable spannable = new SpannableString(formattedCurrency);
-        spannable.setSpan(new StyleSpan(Typeface.BOLD), 0, data.getSymbol().length() + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        return spannable;
-    }
+//    protected Spannable getSpannedCurrencyString(Currency data) {
+//        String formattedCurrency = getString(R.string.currency_fmt, new String[]{data.getSymbol(), data.getName()});
+//        Spannable spannable = new SpannableString(formattedCurrency);
+//        spannable.setSpan(new StyleSpan(Typeface.BOLD), 0, data.getSymbol().length() + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+//        return spannable;
+//    }
 
-    protected int getDrawable(Currency data) {
-        return itemView.getContext().getResources().getIdentifier(data.getSymbol().toLowerCase(), "drawable", itemView.getContext().getPackageName());
-    }
+//    protected int getDrawable(Currency data) {
+//        return itemView.getContext().getResources().getIdentifier(data.getSymbol().toLowerCase(), "drawable", itemView.getContext().getPackageName());
+//    }
 
     private Spannable getSpannedCurrencyChange(@StringRes int stringFmt, String currencyRate) {
-        String formattedCurrency = getString(stringFmt, new String[]{currencyRate});
+        String formattedCurrency = getString(itemView.getContext(), stringFmt, new String[]{currencyRate});
         Spannable spannable = new SpannableString(formattedCurrency);
         if (!TextUtils.isEmpty(currencyRate)) {
             int color = currencyRate.contains("-") ? R.color.red_600 : R.color.green_600;
@@ -75,9 +80,9 @@ public abstract class BaseCurrencyHolder extends BindableViewHolder<Currency> {
         return spannable;
     }
 
-    @NonNull
+    /*@NonNull
     private String getString(@StringRes int stringFmt, Object[] args) {
         return String.format(itemView.getContext().getString(stringFmt), args);
-    }
+    }*/
 
 }

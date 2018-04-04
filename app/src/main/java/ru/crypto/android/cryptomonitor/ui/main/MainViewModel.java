@@ -38,7 +38,7 @@ public class MainViewModel extends BaseViewModel {
 
 
     public void loadCurrencies() {
-        subscribeIoHandleError(repository.getCurrencies(),
+        subscribeIoHandleError(repository.getAsyncCachedCurrencies(),
                 list -> currencyLiveData.postValue(list),
                 Timber::e);
     }

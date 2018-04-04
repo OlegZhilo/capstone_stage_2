@@ -47,8 +47,9 @@ dependencies {
     annotationProcessor jakewharton.butterknifeCompiler
 
     // RxJava
-    implementation rxjava2.rxjava
-    implementation rxjava2.rxandroid
+    implementation rxjava2.rxJava
+    implementation rxjava2.rxAndroid
+    implementation rxjava2.rxBindingV7
 
     // Dagger 2
     implementation dagger.dagger
