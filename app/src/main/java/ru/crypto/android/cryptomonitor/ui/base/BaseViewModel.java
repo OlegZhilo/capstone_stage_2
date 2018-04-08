@@ -72,7 +72,6 @@ public class BaseViewModel extends ViewModel {
     }
 
     private void handleError(Throwable e, Consumer<Throwable> onError) {
-        //getView().handleError(e);
         errorLiveData.postValue(e);
         if (onError != null) {
             try {

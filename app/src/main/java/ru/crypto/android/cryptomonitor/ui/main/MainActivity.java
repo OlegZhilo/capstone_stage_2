@@ -1,11 +1,11 @@
 package ru.crypto.android.cryptomonitor.ui.main;
 
 
-import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -39,10 +39,15 @@ public class MainActivity extends BaseAсtivity<MainViewModel> {
     }
 
     @Override
+    protected void onError(Throwable throwable) {
+
+    }
+
+    @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        FragmentManager fragmentManager = getFragmentManager();
+        FragmentManager fragmentManager = getSupportFragmentManager();
         PagerAdapter pagerAdapter = new PagerAdapter(fragmentManager);
         viewPager.setAdapter(pagerAdapter);
         showList();

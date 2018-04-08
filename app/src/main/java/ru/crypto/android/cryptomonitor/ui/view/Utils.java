@@ -23,7 +23,7 @@ public class Utils {
         int currencyDrawable;
         currencyDrawable = context.getResources().getIdentifier(data.getSymbol().toLowerCase(), "drawable", context.getPackageName());
         if (currencyDrawable == RECOURSE_NOT_FOUND)
-            currencyDrawable = R.drawable.ic_money;
+            currencyDrawable = R.drawable.ic_bitcoin;
         return currencyDrawable;
     }
 

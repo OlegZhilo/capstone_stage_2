@@ -9,6 +9,8 @@ import android.support.v7.widget.SearchView;
 import android.support.v7.widget.SimpleItemAnimator;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.View;
+import android.widget.TextView;
 
 import com.annimon.stream.Stream;
 import com.jakewharton.rxbinding2.support.v7.widget.RxSearchView;
@@ -35,6 +37,8 @@ public class AddCurrencyActivity extends BaseAсtivity<AddCurrencyViewModel> {
     SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.recycler)
     RecyclerView recyclerView;
+    @BindView(R.id.state_tv)
+    TextView stateTv;
 
     private EasyAdapter adapter = new EasyAdapter();
     private AddCurrencyController addCurrencyController = new AddCurrencyController(this::onFavoriteClick);
@@ -93,11 +97,19 @@ public class AddCurrencyActivity extends BaseAсtivity<AddCurrencyViewModel> {
         return AddCurrencyViewModel.class;
     }
 
+    @Override
+    protected void onError(Throwable throwable) {
+        stateTv.setText(R.string.error_state);
+        stateTv.setVisibility(View.VISIBLE);
+        swipeRefreshLayout.setRefreshing(false);
+    }
+
     private void onFavoriteClick(Currency currency) {
         getViewModel().onFavoriteClick(currency);
     }
 
     private void render(List<Currency> currencyList) {
+        stateTv.setVisibility(View.INVISIBLE);
         this.currencyList = currencyList;
         swipeRefreshLayout.postDelayed(() -> swipeRefreshLayout.setRefreshing(false), 500);
         showFiltered(filterText);

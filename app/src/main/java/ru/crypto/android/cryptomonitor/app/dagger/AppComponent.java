@@ -6,6 +6,7 @@ import android.content.Context;
 import dagger.BindsInstance;
 import dagger.Component;
 import dagger.android.AndroidInjectionModule;
+import dagger.android.support.AndroidSupportInjectionModule;
 import ru.crypto.android.cryptomonitor.app.App;
 import ru.crypto.android.cryptomonitor.app.BuilderModule;
 import ru.crypto.android.cryptomonitor.app.dagger.scope.PerApplication;
@@ -17,7 +18,7 @@ import ru.crypto.android.cryptomonitor.repository.common.network.ServerUrlModule
 
 @PerApplication
 @Component(modules = {
-        AndroidInjectionModule.class,
+        AndroidSupportInjectionModule.class,
         AppModule.class,
         SchedulerModule.class,
         ServerUrlModule.class,

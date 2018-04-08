@@ -1,15 +1,14 @@
 package ru.crypto.android.cryptomonitor.ui.base;
 
-import android.app.Fragment;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.Fragment;
 
 import javax.inject.Inject;
 
-import dagger.android.AndroidInjection;
+import dagger.android.support.AndroidSupportInjection;
 import ru.crypto.android.cryptomonitor.app.ViewModelFactory;
 
 
@@ -22,7 +21,7 @@ public abstract class BaseFragment<M extends BaseViewModel> extends Fragment {
 
     @Override
     public void onAttach(Context context) {
-        AndroidInjection.inject(this);
+        AndroidSupportInjection.inject(this);
         super.onAttach(context);
     }
 
@@ -31,6 +30,7 @@ public abstract class BaseFragment<M extends BaseViewModel> extends Fragment {
         super.onActivityCreated(savedInstanceState);
         initViews();
         onStartVisibleView();
+        subscribeErrorLiveData();
     }
 
     @Override
@@ -45,12 +45,18 @@ public abstract class BaseFragment<M extends BaseViewModel> extends Fragment {
 
     protected abstract Class<? extends BaseViewModel> getViewModelClass();
 
+    protected abstract void onError(Throwable throwable);
+
     protected M getViewModel() {
         return viewModel;
     }
 
     @SuppressWarnings("unchecked")
     private void initViewModel() {
-        viewModel = (M) ViewModelProviders.of((AppCompatActivity)getActivity(), viewModelFactory).get(getViewModelClass());
+        viewModel = (M) ViewModelProviders.of(getActivity(), viewModelFactory).get(getViewModelClass());
+    }
+
+    private void subscribeErrorLiveData() {
+        viewModel.getErrorLiveData().observe(this, this::onError);
     }
 }

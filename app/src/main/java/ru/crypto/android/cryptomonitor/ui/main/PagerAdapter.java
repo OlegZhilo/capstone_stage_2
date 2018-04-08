@@ -1,8 +1,8 @@
 package ru.crypto.android.cryptomonitor.ui.main;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.support.v13.app.FragmentPagerAdapter;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 
 import ru.crypto.android.cryptomonitor.ui.chart.ChartCurrencyFragment;
 import ru.crypto.android.cryptomonitor.ui.list.FavoriteCurrencyFragment;

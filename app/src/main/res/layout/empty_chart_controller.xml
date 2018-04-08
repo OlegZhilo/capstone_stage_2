@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:drawablePadding="8dp"
+        android:drawableStart="@drawable/ic_dissatisfied"
+        android:gravity="start"
+        android:text="@string/empty_favorite_currency"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
+
+</FrameLayout>
