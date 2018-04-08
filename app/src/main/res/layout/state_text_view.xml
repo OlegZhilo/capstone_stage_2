@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/state_tv"
+    android:drawableTop="@drawable/ic_dissatisfied"
+    android:layout_gravity="center"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:visibility="gone"
+    android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
+    tools:visibility="visible"
+    tools:text="@string/error_state"
+    tools:showIn="@layout/activity_add_cyrrency" />

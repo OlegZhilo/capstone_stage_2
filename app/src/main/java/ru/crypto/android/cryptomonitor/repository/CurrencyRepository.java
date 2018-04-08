@@ -80,9 +80,16 @@ public class CurrencyRepository {
         return currencyCursor.getCurrencies();
     }
 
-    public Observable<List<Currency>> getMergedCurrencies() {
+    public Observable<List<Currency>> getRemoteCurrenciesWithCache() {
         return getCurrencies()
-                .onErrorReturnItem(getCachedCurrencies())
+                .onErrorResumeNext(e -> {
+                    List<Currency> cached = getCachedCurrencies();
+                    if (!cached.isEmpty()) {
+                        return Observable.just(cached);
+                    } else {
+                        return Observable.error(e);
+                    }
+                })
                 .flatMap(remoteCurrencies -> getAsyncCachedCurrencies(), (remoteCurrencies, localCurrencies) ->
                         Stream.of(remoteCurrencies)
                                 .map(remoteCurrency -> {
@@ -93,6 +100,16 @@ public class CurrencyRepository {
                                     }
                                     return remoteCurrency;
                                 })
+                                .toList());
+    }
+
+    public Observable<List<Currency>> getCacheCurrenciesWithRemotes() {
+        return getCurrencies()
+                .onErrorReturnItem(getCachedCurrencies())
+                .flatMap(remoteCurrencies -> getAsyncCachedCurrencies(), (remoteCurrencies, localCurrencies) ->
+                        Stream.of(remoteCurrencies)
+                                .filter(remote -> Stream.of(localCurrencies)
+                                        .anyMatch(local -> local.getId().equals(remote.getId())))
                                 .toList());
     }
 

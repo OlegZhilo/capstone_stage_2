@@ -7,11 +7,9 @@ import com.annimon.stream.Stream;
 
 import java.util.List;
 
-import io.reactivex.Observable;
 import ru.crypto.android.cryptomonitor.app.scheduler.SchedulersProvider;
 import ru.crypto.android.cryptomonitor.domain.Currency;
 import ru.crypto.android.cryptomonitor.repository.CurrencyRepository;
-import ru.crypto.android.cryptomonitor.ui.base.BaseAсtivity;
 import ru.crypto.android.cryptomonitor.ui.base.BaseViewModel;
 import timber.log.Timber;
 
@@ -31,7 +29,7 @@ public class AddCurrencyViewModel extends BaseViewModel {
     }
 
     public void loadCurrencies() {
-        subscribeIoHandleError(repository.getMergedCurrencies(),
+        subscribeIoHandleError(repository.getRemoteCurrenciesWithCache(),
                 list -> currencyLiveData.postValue(list),
                 Timber::e);
     }

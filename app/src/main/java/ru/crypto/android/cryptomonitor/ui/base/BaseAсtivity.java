@@ -1,10 +1,9 @@
 package ru.crypto.android.cryptomonitor.ui.base;
 
-import android.app.Fragment;
-import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
@@ -15,10 +14,10 @@ import butterknife.ButterKnife;
 import dagger.android.AndroidInjection;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
-import dagger.android.HasFragmentInjector;
+import dagger.android.support.HasSupportFragmentInjector;
 import ru.crypto.android.cryptomonitor.app.ViewModelFactory;
 
-public abstract class BaseAсtivity<M extends BaseViewModel> extends AppCompatActivity implements HasFragmentInjector {
+public abstract class BaseAсtivity<M extends BaseViewModel> extends AppCompatActivity implements HasSupportFragmentInjector {
 
     private M viewModel;
 
@@ -39,18 +38,19 @@ public abstract class BaseAсtivity<M extends BaseViewModel> extends AppCompatAc
     }
 
     @Override
-    public AndroidInjector<Fragment> fragmentInjector() {
+    public AndroidInjector<Fragment> supportFragmentInjector() {
         return fragmentDispatchingAndroidInjector;
     }
 
     private void subscribeErrorLiveData() {
-        viewModel.getErrorLiveData().observe(this,
-                throwable -> Toast.makeText(this, "ERROR", Toast.LENGTH_LONG).show());
+        viewModel.getErrorLiveData().observe(this, this::onError);
     }
 
     protected abstract int getContentView();
 
     protected abstract Class<? extends BaseViewModel> getViewModelClass();
+
+    protected abstract void onError(Throwable throwable);
 
     protected M getViewModel() {
         return viewModel;

@@ -5,9 +5,11 @@ import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SimpleItemAnimator;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -23,12 +25,14 @@ import ru.surfstudio.easyadapter.recycler.EasyAdapter;
 import ru.surfstudio.easyadapter.recycler.ItemList;
 
 
-public class FavoriteCurrencyFragment extends BaseFragment<MainViewModel> {
+public class FavoriteCurrencyFragment extends BaseFragment<FavoriteCurrencyViewModel> {
 
     @BindView(R.id.swr)
     SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.recycler)
     RecyclerView recyclerView;
+    @BindView(R.id.state_tv)
+    TextView stateTv;
 
     private EasyAdapter adapter = new EasyAdapter();
 
@@ -38,18 +42,26 @@ public class FavoriteCurrencyFragment extends BaseFragment<MainViewModel> {
     protected void initViews() {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(adapter);
+        ((SimpleItemAnimator)recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
         swipeRefreshLayout.setOnRefreshListener(() -> getViewModel().loadCurrencies());
     }
 
     @Override
     protected void onStartVisibleView() {
+        swipeRefreshLayout.setRefreshing(true);
         getViewModel().getCurrencyLiveData().observeForever(this::render);
         getViewModel().loadCurrencies();
 
     }
     @Override
     protected Class<? extends BaseViewModel> getViewModelClass() {
-        return MainViewModel.class;
+        return FavoriteCurrencyViewModel.class;
+    }
+
+    @Override
+    protected void onError(Throwable throwable) {
+        stateTv.setText(R.string.error_state);
+        stateTv.setVisibility(View.VISIBLE);
     }
 
     @Nullable
@@ -61,7 +73,11 @@ public class FavoriteCurrencyFragment extends BaseFragment<MainViewModel> {
     }
 
     private void render(List<Currency> list) {
-//        swipeRefreshLayout.setRefreshing(false);
+        swipeRefreshLayout.postDelayed(() -> swipeRefreshLayout.setRefreshing(false), 500);
+        if (list.isEmpty()) {
+            stateTv.setText(R.string.empty_favorite_currency);
+        }
+        stateTv.setVisibility(list.isEmpty() ? View.VISIBLE : View.INVISIBLE);
         adapter.setItems(ItemList.create().addAll(list, currencyController));
     }
 }

@@ -6,7 +6,7 @@ import android.widget.TextView;
 
 import ru.crypto.android.cryptomonitor.R;
 import ru.crypto.android.cryptomonitor.domain.Currency;
-import ru.crypto.android.cryptomonitor.ui.view.OnFavoriteClick;
+import ru.crypto.android.cryptomonitor.ui.view.OnCurrencyClick;
 import ru.surfstudio.easyadapter.recycler.controller.BindableItemController;
 import ru.surfstudio.easyadapter.recycler.holder.BindableViewHolder;
 
@@ -15,9 +15,9 @@ import static ru.crypto.android.cryptomonitor.ui.view.Utils.getSpannedCurrencySt
 
 public class AddCurrencyController extends BindableItemController<Currency, AddCurrencyController.Holder> {
 
-    private OnFavoriteClick onFavoriteClick;
+    private OnCurrencyClick onFavoriteClick;
 
-    public AddCurrencyController(OnFavoriteClick onCurrencyClick) {
+    public AddCurrencyController(OnCurrencyClick onCurrencyClick) {
         this.onFavoriteClick = onCurrencyClick;
     }
 
