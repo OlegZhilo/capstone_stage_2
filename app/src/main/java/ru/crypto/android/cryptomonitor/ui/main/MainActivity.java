@@ -13,6 +13,7 @@ import android.widget.ImageView;
 
 import butterknife.BindView;
 import ru.crypto.android.cryptomonitor.R;
+import ru.crypto.android.cryptomonitor.notification.NotificationUtils;
 import ru.crypto.android.cryptomonitor.ui.addcurrency.AddCurrencyActivity;
 import ru.crypto.android.cryptomonitor.ui.base.BaseAсtivity;
 import ru.crypto.android.cryptomonitor.ui.base.BaseViewModel;

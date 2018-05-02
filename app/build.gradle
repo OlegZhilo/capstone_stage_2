@@ -61,6 +61,7 @@ dependencies {
 
     //data persistent
     implementation gServices.firebaseCore
+    implementation gServices.firebaseJobDipatcher
 
     //netWork
     implementation netWork.retrofit

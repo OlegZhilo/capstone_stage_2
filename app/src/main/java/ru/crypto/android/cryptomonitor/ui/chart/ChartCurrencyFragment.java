@@ -7,20 +7,16 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.LinearSnapHelper;
-import android.support.v7.widget.PagerSnapHelper;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SnapHelper;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.db.chart.view.LineChartView;
 
 import java.util.List;
-import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,8 +29,6 @@ import ru.crypto.android.cryptomonitor.ui.base.BaseViewModel;
 import ru.crypto.android.cryptomonitor.ui.chart.controller.ChartCurrencyController;
 import ru.crypto.android.cryptomonitor.ui.chart.controller.EmptyStateController;
 import ru.crypto.android.cryptomonitor.ui.list.FavoriteCurrencyViewModel;
-import ru.crypto.android.cryptomonitor.ui.main.MainViewModel;
-import ru.crypto.android.cryptomonitor.ui.view.StartSnapHelper;
 import ru.surfstudio.easyadapter.recycler.EasyAdapter;
 import ru.surfstudio.easyadapter.recycler.ItemList;
 
