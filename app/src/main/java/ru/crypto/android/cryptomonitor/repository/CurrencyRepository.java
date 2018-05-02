@@ -4,6 +4,7 @@ package ru.crypto.android.cryptomonitor.repository;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
+import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.annimon.stream.Stream;
@@ -20,17 +21,21 @@ import ru.crypto.android.cryptomonitor.provider.currency.CurrencyContentValues;
 import ru.crypto.android.cryptomonitor.provider.currency.CurrencyContract;
 import ru.crypto.android.cryptomonitor.provider.currency.CurrencyCursor;
 import ru.crypto.android.cryptomonitor.provider.currency.CurrencySelection;
+import ru.crypto.android.cryptomonitor.repository.utils.SettingsUtil;
 import ru.crypto.android.cryptomonitor.repository.utils.TransformUtil;
 
 @PerApplication
 public class CurrencyRepository {
 
     private static final String TO_SYM = "USD";
+    private Context context;
     private CurrencyApi currencyApi;
     private ContentResolver contentResolver;
+    private static final String NOTYFICATION_CURRENCY_ID = "notification_currency_id";
 
     @Inject
-    public CurrencyRepository(CurrencyApi currencyApi, ContentResolver contentResolver) {
+    public CurrencyRepository(Context context, CurrencyApi currencyApi, ContentResolver contentResolver) {
+        this.context = context;
         this.currencyApi = currencyApi;
         this.contentResolver = contentResolver;
     }
@@ -60,6 +65,15 @@ public class CurrencyRepository {
             default:
                 throw new IllegalArgumentException("Unsupported Period: " + period.name());
         }
+    }
+
+    public void saveCurrencyForNotification(Currency currency) {
+        SettingsUtil.putString(context, NOTYFICATION_CURRENCY_ID, currency.getId());
+    }
+
+    public String getCurrencyForNotification() {
+        //return SettingsUtil.getString(context, NOTYFICATION_CURRENCY_ID);
+        return "bitcoin";
     }
 
     public long saveCurrency(Currency currency) {

@@ -9,7 +9,6 @@ import ru.crypto.android.cryptomonitor.app.dagger.scope.PerApplication;
 public class SchedulerModule {
 
     @Provides
-    @PerApplication
     public SchedulersProvider provideSchedulerProvider(){
         return new SchedulersProviderImpl();
     }

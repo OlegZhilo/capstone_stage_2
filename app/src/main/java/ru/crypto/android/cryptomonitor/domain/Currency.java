@@ -123,4 +123,5 @@ public class Currency {
     public int hashCode() {
         return Objects.hash(id, name, volume24hUsd, percentChange1H, percentChange24H, percentChange7D, priceUsd, rank, symbol, isFavorite);
     }
+
 }
