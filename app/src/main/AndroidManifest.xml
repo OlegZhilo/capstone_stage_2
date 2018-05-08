@@ -13,26 +13,28 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.main.MainActivity">
+        <activity
+            android:name=".ui.main.MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".ui.addcurrency.AddCurrencyActivity" />
+        <activity
+            android:name=".ui.addcurrency.AddCurrencyActivity"
+            android:screenOrientation="portrait" />
 
         <provider
-            android:name="ru.crypto.android.cryptomonitor.provider.CryptoContentProvider"
+            android:name=".provider.CryptoContentProvider"
             android:authorities="ru.crypto.android.cryptomonitor.provider"
             android:exported="false" />
 
         <service
             android:name=".services.UpdateJobService"
-            android:permission="android.permission.BIND_JOB_SERVICE"
-            android:exported="false">
-        </service>
+            android:exported="false"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
 
         <receiver
             android:name=".services.BootCompleteReceiver"
@@ -42,6 +44,11 @@
             </intent-filter>
         </receiver>
 
+        <activity
+            android:name=".ui.settings.SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:screenOrientation="portrait"
+            android:theme="@style/SettingsTheme" />
     </application>
 
 </manifest>

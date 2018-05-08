@@ -46,6 +46,12 @@ public class NotificationUtils {
         notify(context, notificationLayout, Utils.getDrawableForCurrency(context, currency));
     }
 
+    public static void cancel(Context context) {
+        NotificationManager notificationManager = (NotificationManager)
+                context.getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.cancel(NOTIFICATION_ID);
+    }
+
     private static void notify(Context context, RemoteViews remoteViews, int icon) {
         NotificationManager notificationManager = (NotificationManager)
                 context.getSystemService(Context.NOTIFICATION_SERVICE);
@@ -58,17 +64,11 @@ public class NotificationUtils {
         }
 
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID)
-//                .setColor(ContextCompat.getColor(context, R.color.colorPrimary))
                 .setSmallIcon(R.drawable.ic_bitcoin)
                 .setLargeIcon(largeIcon(context, icon))
-//                .setContentTitle("Title")
-//                .setContentText("Content text")
                 .setStyle(new NotificationCompat.DecoratedCustomViewStyle())
                 .setCustomContentView(remoteViews)
-//                .setDefaults(Notification.DEFAULT_VIBRATE)
-//                .setContentIntent(contentIntent(context))
-//                .addAction(drinkWaterAction(context))
-//                .addAction(ignoreReminderAction(context))
+                .setDefaults(Notification.DEFAULT_VIBRATE)
                 .setOngoing(true)
                 .setAutoCancel(false);
 

@@ -2,7 +2,9 @@ package ru.crypto.android.cryptomonitor.ui.main;
 
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
@@ -14,11 +16,15 @@ import android.widget.ImageView;
 import butterknife.BindView;
 import ru.crypto.android.cryptomonitor.R;
 import ru.crypto.android.cryptomonitor.notification.NotificationUtils;
+import ru.crypto.android.cryptomonitor.repository.utils.SettingsUtil;
+import ru.crypto.android.cryptomonitor.services.JobUtil;
 import ru.crypto.android.cryptomonitor.ui.addcurrency.AddCurrencyActivity;
 import ru.crypto.android.cryptomonitor.ui.base.BaseAсtivity;
 import ru.crypto.android.cryptomonitor.ui.base.BaseViewModel;
 
-public class MainActivity extends BaseAсtivity<MainViewModel> {
+import static ru.crypto.android.cryptomonitor.ui.settings.SettingsActivity.SYNC_PERIOD_KEY;
+
+public class MainActivity extends BaseAсtivity<MainViewModel> implements SharedPreferences.OnSharedPreferenceChangeListener {
 
     @BindView(R.id.view_pager)
     ViewPager viewPager;
@@ -58,6 +64,31 @@ public class MainActivity extends BaseAсtivity<MainViewModel> {
         currencyListBtn.setOnClickListener(v -> showList());
 
         currencyChartBtn.setOnClickListener(v -> showCharts());
+
+        registerSharedPreferences();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unRegisterSharedPreferences();
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        if (SYNC_PERIOD_KEY.equals(key)) {
+            JobUtil.scheduleJob(this, SettingsUtil.getInt(this, SYNC_PERIOD_KEY));
+        }
+    }
+
+    private void unRegisterSharedPreferences() {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        prefs.unregisterOnSharedPreferenceChangeListener(this);
+    }
+
+    private void registerSharedPreferences() {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        prefs.registerOnSharedPreferenceChangeListener(this);
     }
 
     private void showList() {

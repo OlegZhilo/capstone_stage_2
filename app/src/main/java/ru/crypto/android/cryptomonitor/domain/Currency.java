@@ -17,6 +17,7 @@ public class Currency {
     private String rank = EMPTY_STR;
     private String symbol = EMPTY_STR;
     private boolean isFavorite;
+    private boolean isNotifiable;
 
     public Currency() {
         //stub constructor
@@ -49,6 +50,14 @@ public class Currency {
 
     public void setFavorite(boolean favorite) {
         isFavorite = favorite;
+    }
+
+    public boolean isNotifiable() {
+        return isNotifiable;
+    }
+
+    public void setNotifiable(boolean notifiable) {
+        isNotifiable = notifiable;
     }
 
     public String getId() {
@@ -121,7 +130,7 @@ public class Currency {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, volume24hUsd, percentChange1H, percentChange24H, percentChange7D, priceUsd, rank, symbol, isFavorite);
+        return Objects.hash(id, name, volume24hUsd, percentChange1H, percentChange24H, percentChange7D, priceUsd, rank, symbol, isFavorite, isNotifiable);
     }
 
 }
