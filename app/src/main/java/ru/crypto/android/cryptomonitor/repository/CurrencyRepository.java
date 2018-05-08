@@ -17,6 +17,7 @@ import io.reactivex.Observable;
 import ru.crypto.android.cryptomonitor.app.dagger.scope.PerApplication;
 import ru.crypto.android.cryptomonitor.domain.ChartData;
 import ru.crypto.android.cryptomonitor.domain.Currency;
+import ru.crypto.android.cryptomonitor.notification.NotificationUtils;
 import ru.crypto.android.cryptomonitor.provider.currency.CurrencyContentValues;
 import ru.crypto.android.cryptomonitor.provider.currency.CurrencyContract;
 import ru.crypto.android.cryptomonitor.provider.currency.CurrencyCursor;
@@ -28,6 +29,7 @@ import ru.crypto.android.cryptomonitor.repository.utils.TransformUtil;
 public class CurrencyRepository {
 
     private static final String TO_SYM = "USD";
+    public static final int DEFAULT_PERIOD = 180;
     private Context context;
     private CurrencyApi currencyApi;
     private ContentResolver contentResolver;
@@ -72,8 +74,11 @@ public class CurrencyRepository {
     }
 
     public String getCurrencyForNotification() {
-        //return SettingsUtil.getString(context, NOTYFICATION_CURRENCY_ID);
-        return "bitcoin";
+        return SettingsUtil.getString(context, NOTYFICATION_CURRENCY_ID);
+    }
+
+    public Observable<String> getCurrencyForNotificationAsync() {
+        return Observable.fromCallable(() -> SettingsUtil.getString(context, NOTYFICATION_CURRENCY_ID));
     }
 
     public long saveCurrency(Currency currency) {
@@ -134,6 +139,11 @@ public class CurrencyRepository {
     public long deleteCurrency(Currency currency) {
         CurrencySelection selection = new CurrencySelection();
         selection.id(currency.getId());
+
+        if(getCurrencyForNotification().equals(currency.getId())) {
+            NotificationUtils.cancel(context);
+        }
+
         return selection.delete(contentResolver);
     }
 

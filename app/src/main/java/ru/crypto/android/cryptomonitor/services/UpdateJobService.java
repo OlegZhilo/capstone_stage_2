@@ -3,6 +3,7 @@ package ru.crypto.android.cryptomonitor.services;
 
 import android.app.job.JobParameters;
 import android.app.job.JobService;
+import android.text.TextUtils;
 
 import javax.inject.Inject;
 
@@ -37,22 +38,23 @@ public class UpdateJobService extends JobService {
     public boolean onStartJob(JobParameters params) {
         Timber.d("UpdateJobService onStartJob");
 
-
         String currencyId = repository.getCurrencyForNotification();
 
-        subscribeIoHandleError(repository.getCurrency(currencyId),
-                list -> {
-                    for (Currency currency : list) {
-                        Timber.d(currency.toString());
-                    }
+        if(!TextUtils.isEmpty(currencyId)) {
+            subscribeIoHandleError(repository.getCurrency(currencyId),
+                    list -> {
+                        for (Currency currency : list) {
+                            Timber.d(currency.toString());
+                        }
 
-                    if (!list.isEmpty()) {
-                        NotificationUtils.notify(getApplicationContext(), list.get(0));
-                    }
-                },
-                e -> {
+                        if (!list.isEmpty()) {
+                            NotificationUtils.notify(getApplicationContext(), list.get(0));
+                        }
+                    },
+                    e -> {
 
-                });
+                    });
+        }
         return false;
     }
 

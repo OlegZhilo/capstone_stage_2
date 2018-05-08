@@ -7,23 +7,24 @@ import android.content.Context;
 
 import java.util.concurrent.TimeUnit;
 
+import ru.crypto.android.cryptomonitor.repository.utils.SettingsUtil;
+import ru.crypto.android.cryptomonitor.ui.settings.SettingsActivity;
+
+import static android.app.job.JobInfo.NETWORK_TYPE_ANY;
+import static ru.crypto.android.cryptomonitor.repository.CurrencyRepository.DEFAULT_PERIOD;
+import static ru.crypto.android.cryptomonitor.repository.utils.SettingsUtil.EMPTY_INT_SETTING;
+
 public class JobUtil {
 
-    private static final int JOB_ID = 74896;
-    private static final String JOB_TAG = "update_currencies_tag";
+    private static final int JOB_ID = 72496;
 
-    private static final int REMINDER_INTERVAL_MINUTES = 1;
-    private static final int REMINDER_INTERVAL_SECONDS = (int) (TimeUnit.MINUTES.toSeconds(REMINDER_INTERVAL_MINUTES));
-    private static final int SYNC_FLEXTIME_SECONDS = REMINDER_INTERVAL_SECONDS;
-
-    public static void scheduleJob(Context context) {
-
+    public static void scheduleJob(Context context, int period) {
         JobScheduler jobScheduler = (JobScheduler) context.getSystemService(Context.JOB_SCHEDULER_SERVICE);
         ComponentName jobService =  new ComponentName(context.getPackageName(), UpdateJobService.class.getName());
         JobInfo jobInfo =  new JobInfo.Builder(JOB_ID, jobService)
-                .setPeriodic(30 * 1000)
+                .setRequiredNetworkType(NETWORK_TYPE_ANY)
+                .setPeriodic(period * 60 * 1000)
                 .build();
-
         jobScheduler.schedule(jobInfo);
     }
 }
