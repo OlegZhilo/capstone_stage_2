@@ -45,8 +45,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
      * A preference value change listener that updates the preference's summary
      * to reflect its new value.
      */
-    private Preference.OnPreferenceChangeListener sBindPreferenceSummaryToValueListener = (preference, value) -> {
-        setSyncPeriod(Integer.parseInt(value.toString()));
+    private static Preference.OnPreferenceChangeListener sBindPreferenceSummaryToValueListener = (preference, value) -> {
+        setSyncPeriod(preference.getContext(), Integer.parseInt(value.toString()));
         String stringValue = value.toString();
 
         if (preference instanceof ListPreference) {
@@ -73,7 +73,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
      *
      * @see #sBindPreferenceSummaryToValueListener
      */
-    private void bindPreferenceSummaryToValue(Preference preference) {
+    private static void bindPreferenceSummaryToValue(Preference preference) {
         // Set the listener to watch for value changes.
         preference.setOnPreferenceChangeListener(sBindPreferenceSummaryToValueListener);
 
@@ -94,10 +94,10 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 .commit();
     }
 
-    private void setSyncPeriod(int newPeriod) {
-        int currentPeriod = SettingsUtil.getInt(this, SYNC_PERIOD_KEY);
+    private static void setSyncPeriod(Context context, int newPeriod) {
+        int currentPeriod = SettingsUtil.getInt(context, SYNC_PERIOD_KEY);
         if (currentPeriod != newPeriod)
-            SettingsUtil.putInt(this, SYNC_PERIOD_KEY, newPeriod);
+            SettingsUtil.putInt(context, SYNC_PERIOD_KEY, newPeriod);
     }
 
     /**
@@ -105,8 +105,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
      * activity is showing a two-pane settings UI.
      */
     @SuppressLint("ValidFragment")
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    public class DataSyncPreferenceFragment extends PreferenceFragment {
+    public static class DataSyncPreferenceFragment extends PreferenceFragment {
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);

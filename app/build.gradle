@@ -1,5 +1,9 @@
 apply plugin: 'com.android.application'
 
+def keystorePropertiesFile = rootProject.file("sign-config/keystore.properties")
+def keystoreProperties = new Properties()
+keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+
 android {
     compileSdkVersion versions.compileSdkVersion
     defaultConfig {
@@ -10,15 +14,32 @@ android {
         versionName versions.versionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
+    signingConfigs {
+
+        release {
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            storeFile file(keystoreProperties['storeFile'])
+            storePassword keystoreProperties['storePassword']
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
+            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
     compileOptions {
         targetCompatibility 1.8
         sourceCompatibility 1.8
+    }
+
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
     }
 }
 
@@ -61,8 +82,6 @@ dependencies {
     annotationProcessor dagger.daggerAndroidCompiler
 
     //data persistent
-//    implementation gServices.firebaseCore
-//    implementation gServices.firebaseJobDipatcher
     implementation gServices.ads
     implementation gServices.analytics
 

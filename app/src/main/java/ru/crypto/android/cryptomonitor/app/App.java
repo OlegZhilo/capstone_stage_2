@@ -36,7 +36,7 @@ public class App extends Application implements HasActivityInjector, HasServiceI
                 .build()
                 .inject(this);
     }
-    
+
     public static void initLogger(){
         Timber.plant(new Timber.DebugTree());
     }

@@ -21,11 +21,9 @@ ext {
             gsonVersion      : "2.8.2",
             okHttpVersion    : "3.4.1",
             timberVersion    : "4.6.1",
-            firebase         : "11.8.0",
             chartVersion     : "2.5.0",
             stream           : "1.1.9",
             services        : "15.0.0"
-            //jobDispatcher    : "0.8.5"
     ]
 
     support = [
@@ -70,8 +68,6 @@ ext {
     ]
 
     gServices = [
-            //firebaseCore        : "com.google.firebase:firebase-core:$versions.firebase",
-            //firebaseJobDipatcher: "com.firebase:firebase-jobdispatcher:$versions.jobDispatcher",
             ads      : "com.google.android.gms:play-services-ads:$versions.services",
             analytics: "com.google.android.gms:play-services-analytics:$versions.services"
     ]
