@@ -13,6 +13,9 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.annimon.stream.Stream;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.jakewharton.rxbinding2.support.v7.widget.RxSearchView;
 
 import java.util.List;
@@ -60,6 +63,15 @@ public class AddCurrencyActivity extends BaseAсtivity<AddCurrencyViewModel> {
         getViewModel().getCurrencyLiveData().observeForever(this::render);
         getViewModel().loadCurrencies();
 
+        initAdMob();
+
+    }
+
+    private void initAdMob() {
+        MobileAds.initialize(this, "YOUR_ADMOB_APP_ID");
+        AdView adView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
     }
 
     @Override
@@ -123,7 +135,6 @@ public class AddCurrencyActivity extends BaseAсtivity<AddCurrencyViewModel> {
                                 currency.getName().toLowerCase().startsWith(filterText)
                                         || currency.getSymbol().toLowerCase().startsWith(filterText))
                         .toList();
-
         adapter.setItems(ItemList.create()
                 .addAll(filteredList, addCurrencyController));
     }
