@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.Application;
 import android.app.Service;
 
+import com.google.android.gms.analytics.GoogleAnalytics;
+
 import javax.inject.Inject;
 
 import dagger.android.AndroidInjector;
@@ -34,8 +36,7 @@ public class App extends Application implements HasActivityInjector, HasServiceI
                 .build()
                 .inject(this);
     }
-
-
+    
     public static void initLogger(){
         Timber.plant(new Timber.DebugTree());
     }

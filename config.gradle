@@ -24,7 +24,7 @@ ext {
             firebase         : "11.8.0",
             chartVersion     : "2.5.0",
             stream           : "1.1.9",
-            adMob            : "15.0.0"
+            services        : "15.0.0"
             //jobDispatcher    : "0.8.5"
     ]
 
@@ -72,7 +72,8 @@ ext {
     gServices = [
             //firebaseCore        : "com.google.firebase:firebase-core:$versions.firebase",
             //firebaseJobDipatcher: "com.firebase:firebase-jobdispatcher:$versions.jobDispatcher",
-            adMob               : "com.google.android.gms:play-services-ads:$versions.adMob"
+            ads      : "com.google.android.gms:play-services-ads:$versions.services",
+            analytics: "com.google.android.gms:play-services-analytics:$versions.services"
     ]
 
     ui = [

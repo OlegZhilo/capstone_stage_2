@@ -24,6 +24,7 @@ import ru.crypto.android.cryptomonitor.provider.currency.CurrencyCursor;
 import ru.crypto.android.cryptomonitor.provider.currency.CurrencySelection;
 import ru.crypto.android.cryptomonitor.repository.utils.SettingsUtil;
 import ru.crypto.android.cryptomonitor.repository.utils.TransformUtil;
+import ru.crypto.android.cryptomonitor.services.analytic.GoogleAnalyticsApi;
 
 @PerApplication
 public class CurrencyRepository {
@@ -33,13 +34,18 @@ public class CurrencyRepository {
     private Context context;
     private CurrencyApi currencyApi;
     private ContentResolver contentResolver;
+    private GoogleAnalyticsApi googleAnalyticsApi;
     private static final String NOTYFICATION_CURRENCY_ID = "notification_currency_id";
 
     @Inject
-    public CurrencyRepository(Context context, CurrencyApi currencyApi, ContentResolver contentResolver) {
+    public CurrencyRepository(Context context,
+                              CurrencyApi currencyApi,
+                              ContentResolver contentResolver,
+                              GoogleAnalyticsApi googleAnalyticsApi) {
         this.context = context;
         this.currencyApi = currencyApi;
         this.contentResolver = contentResolver;
+        this.googleAnalyticsApi = googleAnalyticsApi;
     }
 
     public Observable<List<Currency>> getCurrencies() {
@@ -82,6 +88,7 @@ public class CurrencyRepository {
     }
 
     public long saveCurrency(Currency currency) {
+        googleAnalyticsApi.trackAddToFavorite(currency.getId());
         return ContentUris.parseId(getCurrencyContentValues(currency).insert(contentResolver));
     }
 
@@ -143,7 +150,7 @@ public class CurrencyRepository {
         if(getCurrencyForNotification().equals(currency.getId())) {
             NotificationUtils.cancel(context);
         }
-
+        googleAnalyticsApi.trackDeleteFromFavorite(currency.getId());
         return selection.delete(contentResolver);
     }
 

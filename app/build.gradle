@@ -63,7 +63,8 @@ dependencies {
     //data persistent
 //    implementation gServices.firebaseCore
 //    implementation gServices.firebaseJobDipatcher
-    implementation gServices.adMob
+    implementation gServices.ads
+    implementation gServices.analytics
 
     //netWork
     implementation netWork.retrofit
@@ -81,6 +82,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
-    compile project(path: ':adapter')
+
+    implementation project(path: ':adapter')
 }
 apply plugin: 'com.google.gms.google-services'
