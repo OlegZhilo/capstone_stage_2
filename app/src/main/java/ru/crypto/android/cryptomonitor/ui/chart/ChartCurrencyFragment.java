@@ -108,6 +108,15 @@ public class ChartCurrencyFragment extends BaseFragment<FavoriteCurrencyViewMode
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        if (!swipeRefreshLayout.isRefreshing()) {
+            swipeRefreshLayout.setRefreshing(true);
+            getViewModel().loadCurrencies();
+        }
+    }
+
+    @Override
     protected void onStartVisibleView() {
         getViewModel().getCurrencyLiveData().observeForever(this::renderCurrencyList);
         getViewModel().getChartLiveData().observeForever(this::renderChart);

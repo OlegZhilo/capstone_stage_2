@@ -70,6 +70,7 @@ public class NotificationUtils {
                 .setCustomContentView(remoteViews)
                 .setDefaults(Notification.DEFAULT_VIBRATE)
                 .setOngoing(true)
+                .setChannelId(CURRENCY_NOTIFICATION_CHANNEL_ID)
                 .setAutoCancel(false);
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {

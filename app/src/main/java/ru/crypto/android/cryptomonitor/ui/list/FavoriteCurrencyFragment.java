@@ -3,6 +3,7 @@ package ru.crypto.android.cryptomonitor.ui.list;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +11,7 @@ import android.support.v7.widget.SimpleItemAnimator;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.OvershootInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,8 +24,8 @@ import ru.crypto.android.cryptomonitor.domain.Currency;
 import ru.crypto.android.cryptomonitor.ui.base.BaseFragment;
 import ru.crypto.android.cryptomonitor.ui.base.BaseViewModel;
 import ru.crypto.android.cryptomonitor.ui.list.controllers.CurrencyController;
-import ru.crypto.android.cryptomonitor.ui.main.MainViewModel;
 import ru.crypto.android.cryptomonitor.ui.settings.SettingsActivity;
+import ru.crypto.android.cryptomonitor.ui.view.HidingScrollListener;
 import ru.surfstudio.easyadapter.recycler.EasyAdapter;
 import ru.surfstudio.easyadapter.recycler.ItemList;
 
@@ -49,6 +51,37 @@ public class FavoriteCurrencyFragment extends BaseFragment<FavoriteCurrencyViewM
     protected void initViews() {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(adapter);
+        recyclerView.addOnScrollListener(new HidingScrollListener(true) {
+            @Override
+            public void onHide() {
+                ViewCompat.animate(settingsBtn)
+                        .translationX(settingsBtn.getWidth())
+                        .rotation(360)
+                        .setDuration(250)
+                        .start();
+                ViewCompat.animate(closeBtn)
+                        .translationX(-closeBtn.getWidth())
+                        .rotation(-360)
+                        .setDuration(250)
+                        .start();
+            }
+
+            @Override
+            public void onShow() {
+                ViewCompat.animate(settingsBtn)
+                        .translationX(0F)
+                        .rotation(0)
+                        .setDuration(250)
+                        .setInterpolator(new OvershootInterpolator())
+                        .start();
+                ViewCompat.animate(closeBtn)
+                        .translationX(0F)
+                        .rotation(0F)
+                        .setDuration(250)
+                        .setInterpolator(new OvershootInterpolator())
+                        .start();
+            }
+        });
         ((SimpleItemAnimator)recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
         swipeRefreshLayout.setOnRefreshListener(() -> getViewModel().loadCurrencies());
 
