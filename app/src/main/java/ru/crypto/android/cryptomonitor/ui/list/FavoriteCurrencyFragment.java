@@ -1,8 +1,12 @@
 package ru.crypto.android.cryptomonitor.ui.list;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,12 +19,15 @@ import android.view.animation.OvershootInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.crypto.android.cryptomonitor.R;
 import ru.crypto.android.cryptomonitor.domain.Currency;
+import ru.crypto.android.cryptomonitor.provider.currency.CurrencyContract;
+import ru.crypto.android.cryptomonitor.provider.currency.CurrencyCursor;
 import ru.crypto.android.cryptomonitor.ui.base.BaseFragment;
 import ru.crypto.android.cryptomonitor.ui.base.BaseViewModel;
 import ru.crypto.android.cryptomonitor.ui.list.controllers.CurrencyController;
@@ -28,10 +35,12 @@ import ru.crypto.android.cryptomonitor.ui.settings.SettingsActivity;
 import ru.crypto.android.cryptomonitor.ui.view.HidingScrollListener;
 import ru.surfstudio.easyadapter.recycler.EasyAdapter;
 import ru.surfstudio.easyadapter.recycler.ItemList;
+import timber.log.Timber;
 
 
-public class FavoriteCurrencyFragment extends BaseFragment<FavoriteCurrencyViewModel> {
+public class FavoriteCurrencyFragment extends BaseFragment<FavoriteCurrencyViewModel> implements LoaderManager.LoaderCallbacks<Cursor> {
 
+    public static final int LOADER_ID = 4567;
     @BindView(R.id.swr)
     SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.recycler)
@@ -83,7 +92,7 @@ public class FavoriteCurrencyFragment extends BaseFragment<FavoriteCurrencyViewM
             }
         });
         ((SimpleItemAnimator)recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
-        swipeRefreshLayout.setOnRefreshListener(() -> getViewModel().loadCurrencies());
+        swipeRefreshLayout.setOnRefreshListener(getViewModel()::loadCurrencies);
 
         closeBtn.setOnClickListener(v -> getActivity().finish());
         settingsBtn.setOnClickListener(v -> getActivity().startActivity(new Intent(getActivity(), SettingsActivity.class)));
@@ -93,18 +102,22 @@ public class FavoriteCurrencyFragment extends BaseFragment<FavoriteCurrencyViewM
     public void onResume() {
         super.onResume();
         if (!swipeRefreshLayout.isRefreshing()) {
-            swipeRefreshLayout.setRefreshing(true);
-            getViewModel().loadCurrencies();
+            initLoadManager();
         }
     }
 
     @Override
     protected void onStartVisibleView() {
-        swipeRefreshLayout.setRefreshing(true);
         getViewModel().getCurrencyLiveData().observeForever(this::render);
-        getViewModel().loadCurrencies();
+        initLoadManager();
 
     }
+
+    private void initLoadManager() {
+        getLoaderManager().destroyLoader(LOADER_ID);
+        getLoaderManager().initLoader(LOADER_ID, null, this);
+    }
+
     @Override
     protected Class<? extends BaseViewModel> getViewModelClass() {
         return FavoriteCurrencyViewModel.class;
@@ -132,4 +145,33 @@ public class FavoriteCurrencyFragment extends BaseFragment<FavoriteCurrencyViewM
         stateTv.setVisibility(list.isEmpty() ? View.VISIBLE : View.INVISIBLE);
         adapter.setItems(ItemList.create().addAll(list, currencyController));
     }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        return new CursorLoader(
+                getActivity(),
+                CurrencyContract.CONTENT_URI,
+                null,
+                null,
+                null,
+                null);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        List<Currency> currencies = new ArrayList<>();
+        while (data.moveToNext()) {
+            CurrencyCursor currencyCursor = new CurrencyCursor(data);
+            currencies.add(currencyCursor.getCurrency());
+            Timber.d(currencyCursor.getId());
+        }
+        data.close();
+        getViewModel().setCurrency(currencies);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+
+    }
+
 }

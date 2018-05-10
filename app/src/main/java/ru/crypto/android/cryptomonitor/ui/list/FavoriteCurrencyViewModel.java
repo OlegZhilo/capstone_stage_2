@@ -61,6 +61,20 @@ public class FavoriteCurrencyViewModel extends BaseViewModel {
                 Timber::e);
     }
 
+    public void setCurrency(List<Currency> list) {
+        subscribeIoHandleError(repository.getCurrencyForNotificationAsync(),
+                pair -> {
+                    Stream.of(list)
+                            .forEach(currency -> {
+                                if(currency.getId().equals(pair)) {
+                                    currency.setNotifiable(true);
+                                }
+                            });
+                    currencyLiveData.postValue(list);
+                },
+                Timber::e);
+    }
+
     public void load(String fromSym, Period period) {
         subscribeIoHandleError(repository.getCurrencyHistory(fromSym, period),
                 chartData -> chartLiveData.postValue(chartData),

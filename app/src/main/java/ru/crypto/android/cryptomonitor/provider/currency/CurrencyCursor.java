@@ -15,7 +15,7 @@ import ru.crypto.android.cryptomonitor.repository.CurrencyRepository;
  */
 public class CurrencyCursor extends AbstractCursor {
 
-    CurrencyCursor(Cursor cursor) {
+    public CurrencyCursor(Cursor cursor) {
         super(cursor);
     }
 
