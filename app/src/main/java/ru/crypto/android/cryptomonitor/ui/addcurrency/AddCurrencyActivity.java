@@ -68,7 +68,7 @@ public class AddCurrencyActivity extends BaseAсtivity<AddCurrencyViewModel> {
     }
 
     private void initAdMob() {
-        MobileAds.initialize(this, "YOUR_ADMOB_APP_ID");
+        MobileAds.initialize(this, "ca-app-pub-3940256099942544~3347511713");
         AdView adView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         adView.loadAd(adRequest);
