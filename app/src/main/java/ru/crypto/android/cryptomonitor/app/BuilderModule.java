@@ -8,6 +8,7 @@ import ru.crypto.android.cryptomonitor.ui.addcurrency.AddCurrencyActivity;
 import ru.crypto.android.cryptomonitor.ui.chart.ChartCurrencyFragment;
 import ru.crypto.android.cryptomonitor.ui.list.FavoriteCurrencyFragment;
 import ru.crypto.android.cryptomonitor.ui.main.MainActivity;
+import ru.crypto.android.cryptomonitor.ui.widget.WidgetUpdateService;
 
 @Module
 public abstract class BuilderModule {
@@ -26,4 +27,7 @@ public abstract class BuilderModule {
 
     @ContributesAndroidInjector(modules = SchedulerModule.class)
     abstract UpdateJobService service();
+
+    @ContributesAndroidInjector(modules = SchedulerModule.class)
+    abstract WidgetUpdateService widgetUpdateService();
 }

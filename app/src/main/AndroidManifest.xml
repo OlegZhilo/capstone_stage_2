@@ -26,6 +26,12 @@
             android:name=".ui.addcurrency.AddCurrencyActivity"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".ui.settings.SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:screenOrientation="portrait"
+            android:theme="@style/SettingsTheme" />
+
         <provider
             android:name=".provider.CryptoContentProvider"
             android:authorities="ru.crypto.android.cryptomonitor.provider"
@@ -36,6 +42,8 @@
             android:exported="false"
             android:permission="android.permission.BIND_JOB_SERVICE" />
 
+        <service android:name=".ui.widget.WidgetUpdateService"/>
+
         <receiver
             android:name=".services.BootCompleteReceiver"
             android:exported="true">
@@ -44,11 +52,16 @@
             </intent-filter>
         </receiver>
 
-        <activity
-            android:name=".ui.settings.SettingsActivity"
-            android:label="@string/title_activity_settings"
-            android:screenOrientation="portrait"
-            android:theme="@style/SettingsTheme" />
+        <receiver android:name=".ui.widget.WidgetProvider">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_provider" />
+        </receiver>
+
     </application>
 
 </manifest>

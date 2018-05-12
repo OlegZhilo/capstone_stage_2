@@ -29,6 +29,7 @@ import ru.crypto.android.cryptomonitor.domain.Currency;
 import ru.crypto.android.cryptomonitor.ui.addcurrency.controllers.AddCurrencyController;
 import ru.crypto.android.cryptomonitor.ui.base.BaseAсtivity;
 import ru.crypto.android.cryptomonitor.ui.base.BaseViewModel;
+import ru.crypto.android.cryptomonitor.ui.widget.WidgetUpdateService;
 import ru.surfstudio.easyadapter.recycler.EasyAdapter;
 import ru.surfstudio.easyadapter.recycler.ItemList;
 
@@ -118,6 +119,8 @@ public class AddCurrencyActivity extends BaseAсtivity<AddCurrencyViewModel> {
 
     private void onFavoriteClick(Currency currency) {
         getViewModel().onFavoriteClick(currency);
+
+        WidgetUpdateService.start(this);
     }
 
     private void render(List<Currency> currencyList) {
