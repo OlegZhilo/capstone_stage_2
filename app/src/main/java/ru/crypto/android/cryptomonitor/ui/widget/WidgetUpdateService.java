@@ -6,6 +6,9 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.Nullable;
+import android.util.Pair;
+
+import com.annimon.stream.Stream;
 
 import java.util.List;
 
@@ -58,17 +61,23 @@ public class WidgetUpdateService extends IntentService {
     }
 
     private void handleActionUpdateWidgets() {
-
-
-        subscribeIoHandleError(repository.getCacheCurrenciesWithRemotes(),
-                this::updateWidget,
+        subscribeIoHandleError(Observable.combineLatest(
+                repository.getCacheCurrenciesWithRemotes(),
+                repository.getCurrencyForNotificationAsync(), Pair::create),
+                pair -> {
+                    Currency findCurrency = Stream.of(pair.first)
+                            .filter(currency -> currency.getId().equals(pair.second))
+                            .findFirst()
+                            .orElse(new Currency());
+                    updateWidget(findCurrency);
+                },
                 Timber::e);
     }
 
-    private void updateWidget(List<Currency> currencies) {
+    private void updateWidget(Currency currency) {
          AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
         int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(this, WidgetProvider.class));
-        WidgetProvider.updateRecipeWidgets(this, appWidgetManager, appWidgetIds, currencies);
+        WidgetProvider.updateRecipeWidgets(this, appWidgetManager, appWidgetIds, currency);
     }
 
     protected <T> Disposable subscribeIoHandleError(Observable<T> observable,

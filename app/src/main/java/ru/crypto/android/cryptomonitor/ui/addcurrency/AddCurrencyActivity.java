@@ -119,7 +119,6 @@ public class AddCurrencyActivity extends BaseAсtivity<AddCurrencyViewModel> {
 
     private void onFavoriteClick(Currency currency) {
         getViewModel().onFavoriteClick(currency);
-
         WidgetUpdateService.start(this);
     }
 

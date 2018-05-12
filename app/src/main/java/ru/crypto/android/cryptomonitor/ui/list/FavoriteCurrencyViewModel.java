@@ -20,6 +20,7 @@ import ru.crypto.android.cryptomonitor.repository.utils.SettingsUtil;
 import ru.crypto.android.cryptomonitor.services.JobUtil;
 import ru.crypto.android.cryptomonitor.ui.base.BaseViewModel;
 import ru.crypto.android.cryptomonitor.ui.settings.SettingsActivity;
+import ru.crypto.android.cryptomonitor.ui.widget.WidgetUpdateService;
 import timber.log.Timber;
 
 import static ru.crypto.android.cryptomonitor.repository.CurrencyRepository.DEFAULT_PERIOD;
@@ -85,6 +86,7 @@ public class FavoriteCurrencyViewModel extends BaseViewModel {
         repository.saveCurrencyForNotification(currency);
         loadCurrencies();
         startNotification(context, currency);
+        WidgetUpdateService.start(context);
     }
 
     private void startNotification(Context context, Currency currency) {

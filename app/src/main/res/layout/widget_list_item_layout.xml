@@ -4,17 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/widget_root"
     android:layout_width="match_parent"
-    android:layout_height="56dp"
+    android:layout_height="64dp"
     android:background="@drawable/widget_bg"
     android:paddingEnd="16dp"
-    android:layout_marginTop="4dp"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp"
     android:paddingStart="16dp">
 
     <TextView
         android:id="@+id/currency_name_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
         android:textAppearance="@style/RobotoBold.16"
         tools:text="Btc|Bitcoin" />
 
@@ -22,7 +22,41 @@
         android:id="@+id/currency_price_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="end|center_vertical"
+        android:layout_gravity="end"
         android:textAppearance="@style/RobotoBold.16"
         tools:text="23325.4 $" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_gravity="bottom"
+        android:layout_height="32dp">
+
+        <TextView
+            android:id="@+id/currency_1_h_changes_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:textAppearance="@style/RobotoBold.14"
+            tools:text="1h: 1.2%" />
+
+        <TextView
+            android:id="@+id/currency_24_h_changes_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:textAppearance="@style/RobotoBold.14"
+            tools:text="1h: 1.2%" />
+
+        <TextView
+            android:id="@+id/currency_7_d_changes_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:textAppearance="@style/RobotoBold.14"
+            tools:text="1h: 1.2%" />
+
+    </RelativeLayout>
 </FrameLayout>

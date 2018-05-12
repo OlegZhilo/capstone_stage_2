@@ -52,7 +52,9 @@
             </intent-filter>
         </receiver>
 
-        <receiver android:name=".ui.widget.WidgetProvider">
+        <receiver android:name=".ui.widget.WidgetProvider"
+            android:icon="@drawable/ic_bitcoin_coin"
+            android:label="WidgetProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
