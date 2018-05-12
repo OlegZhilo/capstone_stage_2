@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="56dp"
     app:layout_constraintDimensionRatio="1"
-    android:background="?selectableItemBackground">
+    android:background="?android:attr/selectableItemBackground">
 
     <ImageView
         android:id="@+id/currency_icon_tv"
@@ -17,6 +17,7 @@
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/icon"
         app:srcCompat="@drawable/act" />
 
     <TextView

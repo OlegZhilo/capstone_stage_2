@@ -29,7 +29,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:background="?selectableItemBackgroundBorderless"
+            android:background="?android:attr/selectableItemBackground"
+            android:contentDescription="@string/button"
             android:padding="8dp"
             android:tint="@color/bottom_btn_states"
             app:srcCompat="@drawable/ic_list" />
@@ -39,7 +40,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|end"
-            android:background="?selectableItemBackgroundBorderless"
+            android:background="?android:attr/selectableItemBackground"
+            android:contentDescription="@string/button"
             android:padding="8dp"
             android:tint="@color/bottom_btn_states"
             app:srcCompat="@drawable/ic_chart" />

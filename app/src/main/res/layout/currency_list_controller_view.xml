@@ -24,7 +24,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            app:srcCompat="@drawable/ic_notifications"/>
+            app:srcCompat="@drawable/ic_notifications"
+            android:contentDescription="@string/icon" />
     </FrameLayout>
 
     <ImageView
@@ -38,7 +39,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/act" />
+        app:srcCompat="@drawable/act"
+        android:contentDescription="@string/icon" />
 
     <TextView
         android:id="@+id/currency_name_tv"

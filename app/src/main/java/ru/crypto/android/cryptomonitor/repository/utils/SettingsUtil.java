@@ -52,7 +52,7 @@ public class SettingsUtil {
     }
 
     public static Set<String> getStringSet(SharedPreferences sp, String key) {
-        return sp.getStringSet(key, new HashSet<String>());
+        return sp.getStringSet(key, new HashSet<>());
     }
 
     public static void putStringSet(SharedPreferences sp, String key, Set<String> value) {

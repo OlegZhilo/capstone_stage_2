@@ -59,9 +59,6 @@ public abstract class HidingScrollListener extends RecyclerView.OnScrollListener
     public abstract void onShow();
 
     private boolean isShowOnUpScroll(int recyclerPositionTop, RecyclerView recyclerView) {
-        if (showOnlyTopPosition) {
-            return recyclerPositionTop >= 0 && recyclerView.getPaddingTop() == recyclerPositionTop;
-        }
-        return true;
+        return !showOnlyTopPosition || recyclerPositionTop >= 0 && recyclerView.getPaddingTop() == recyclerPositionTop;
     }
 }
