@@ -51,6 +51,7 @@
         android:id="@+id/add_currency_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/button"
         android:src="@drawable/ic_add"
         app:backgroundTint="@android:color/white"
         app:elevation="12dp"
